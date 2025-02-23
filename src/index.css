@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --whiteblue: #f7f8ff; 
+  --lightblue: #D2D8FF; 
+  --mediumblue: #539BFF;
+  --blue: #4D63F9;
+  --darkblue: #2D60FF;
+  --bluehover: rgb(73, 78, 225);
+  --pink: #FF82AC;
+  --orange: #FFBB38;
+  --yellow: #FFC700;
+  --green: #1EC6B8;
+  --darkgreen: #06b9aa;
+  --gray: #0B243F;
+  --red: #ea355f;
+  --padding-y-btn: 16px;
+  --padding-x-btn: 48px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: auto 0;
+  font-family: "Noto Sans Thai", serif;
+}
+
