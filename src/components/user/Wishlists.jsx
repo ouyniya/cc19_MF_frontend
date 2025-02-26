@@ -8,7 +8,9 @@ function Wishlists() {
   const wishlists = useWishlistStore(state => state.wishlists);
   const currentWishlist = useWishlistStore(state => state.currentWishlist)
   const setCurrentWishlist = useWishlistStore(state => state.setCurrentWishlist)
+  const getWishlists = useWishlistStore(state => state.getWishlists)
 
+  
   return (
     <>
       <div className="flex flex-col p-6 transition-all duration-300 w-[calc(100vw-350px)]">

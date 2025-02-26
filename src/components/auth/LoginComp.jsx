@@ -2,16 +2,19 @@ import { MailIcon, User2, KeyRound } from "lucide-react";
 import React, { useState } from "react";
 import useUserStore from "../../stores/useUserStore";
 import { Link } from "react-router";
+import { createAlert } from "../../utils/createAlert";
+import { useNavigate } from "react-router";
 
 function LoginComp() {
   const login = useUserStore((state) => state.login);
-
+  const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
 
   const hdlChange = (e) => {
+    // console.log(e.target.value)
     setInput((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -19,20 +22,31 @@ function LoginComp() {
   };
 
   const hdlLogin = async (e) => {
+    // หน่วงเวลาเพื่อให้แสดง icon loading ได้
+    const redirectPage = (role) => {
+      if (role === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/user");
+      }
+    };
+
     try {
       e.preventDefault();
-      const { identity, password } = input;
 
-      // validation
-      if (!identity.trim() || !password.trim()) {
-        return toast("Please fill all inputs");
-      }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // send api
-      let data = await login(input);
+      let res = await login(input);
+      // console.log("res", res.message);
+
+      // console.log(res.user.role);
+      redirectPage(res.user.role);
+
+      createAlert("success", "Welcome");
     } catch (error) {
-      const errMsg = error.response?.data?.error || error.message;
-      toast.error(errMsg);
+      // console.log(error.response?.data.message)
+      const errMsg = error.response?.data?.message || error.message;
+      createAlert("error", errMsg);
     }
   };
 
@@ -42,7 +56,10 @@ function LoginComp() {
         <div className="flex flex-col justify-center item-center max-w-xl p-[48px] m-auto min-h-[calc(100vh-575px)]">
           <div className="flex flex-col justify-center item-center m-auto min-w-[350px] ">
             <h1 className="text-3xl font-bold text-center flex items-center justify-center gap-5 mb-9">
-              <KeyRound size="54px" className="flex items-center stroke-primary" />
+              <KeyRound
+                size="54px"
+                className="flex items-center stroke-primary"
+              />
               ลงชื่อเข้าใช้
             </h1>
             <div className="flex flex-col gap-5 w-full">
@@ -73,7 +90,7 @@ function LoginComp() {
               Login
             </button>
             <span className="text-center">
-              ยังไม่มีบัญชีใช่ไหม{" "}
+              ยังไม่มีบัญชีใช่ไหม
               <Link to="/register" className="link link-hover link-primary">
                 สมัครสมาชิกที่นี่
               </Link>

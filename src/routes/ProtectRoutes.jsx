@@ -1,20 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import useUserStore from "../stores/useUserStore";
+import { getCurrentUser } from "../api/auth";
 
 function ProtectRoutes(props) {
-    const { el, allows } = props
+  const { el, allows } = props;
 
-    const role = "USER"
-    // const role = "ADMIN"
+  // get user and token from store
+  const user = useUserStore((state) => state.user);
+  const token = useUserStore((state) => state.token);
+  // console.log(token)
+  // set status login >> ok or not?
+  const [ok, setOk] = useState(null);
 
-    if (allows[0] !== role) {
-        return <h1>Unauthorized!!!</h1>
+  useEffect(() => {
+    checkPermission();
+  }, []);
+
+  // check permission
+  const checkPermission = async () => {
+    try {
+      // get user data from backend
+      const rs = await getCurrentUser(token);
+      console.log(rs)
+
+      const role = rs.user.role;
+      console.log('***',role)
+      // check role of user >> admin or user
+      setOk(allows.includes(role) ? true : false);
+    } catch (error) {
+      setOk(false);
     }
-  return (
-    <>
-    { el }
-    
-    </>
-  )
+  };
+
+  // loading part
+  if (ok === null) {
+    return <h1>Loading...</h1>
+  }
+
+  if (!ok) {
+    return <h1>Unauthorized!!!</h1>;
+  }
+  return <>{el}</>;
 }
 
-export default ProtectRoutes
+export default ProtectRoutes;

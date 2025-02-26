@@ -7,10 +7,20 @@ const useUserStore = create(
     (set, get) => ({
       user: null,
       token: "",
+      currentUser: null,
       login: async (input) => {
-        const rs = await axios.post("http://localhost:8899/auth/login", input);
+        // console.log(input)
+        const rs = await axios.post("http://localhost:8000/api/login", input);
+        // console.log(rs.data)
         set({ token: rs.data.token, user: rs.data.user });
         return rs.data;
+      },
+      getCurrentUser: async (token) => {
+        const res = await axios.get("http://localhost:8000/user/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        set({ currentUser: res.data });
+        return res.data;
       },
       logout: () => set({ token: "", user: null }),
     }),
