@@ -1,6 +1,8 @@
 import { MailIcon, User2, KeyRound, BookUser } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router";
+import { createAlert } from "../../utils/createAlert";
+import useUserStore from "../../stores/useUserStore";
 
 // not re render
 const initInput = {
@@ -12,6 +14,7 @@ const initInput = {
 
 function RegisterComp() {
   const [input, setInput] = useState(initInput);
+  const createNewAccount = useUserStore(state => state.createNewAccount)
 
   const hdlChange = (e) => {
     setInput((prev) => ({
@@ -36,26 +39,23 @@ function RegisterComp() {
         !password.trim() ||
         !confirmPassword.trim()
       ) {
-        return toast("Please fill all inputs");
+        return createAlert("info", "Please fill all inputs");
       }
 
       if (password !== confirmPassword) {
-        return toast("Password and Confirm password unmatched!!");
+        return createAlert("info", "Password and Confirm password unmatched!!");
       }
 
-      // toast.success(JSON.stringify(input), {position: 'top-right'})
-
+      console.log(input)
       // ** send request to api (backend)
-      const rs = await axios.post("http://localhost:8899/auth/register", input);
-      // toast(JSON.stringify(rs.data))
+      await createNewAccount(input)
 
       hdlClearInput();
-      document.getElementById("register-form").close();
-      toast("Register successfully");
-    } catch (err) {
+      createAlert("success", "Register successfully");
+    } catch (error) {
       // console.log(err)
-      const errMsg = err.response?.data?.error || err.message;
-      toast.error(errMsg);
+      const errMsg = error.response?.data?.error || error.message;
+      createAlert("info", errMsg);
     }
   };
 
@@ -64,7 +64,10 @@ function RegisterComp() {
       <div className="flex flex-col justify-center item-center max-w-xl p-[48px] m-auto min-h-[calc(100vh-575px)]">
         <div className="flex flex-col justify-center item-center m-auto min-w-[350px] ">
           <h1 className="text-3xl font-bold text-center flex items-center justify-center gap-5 mb-9">
-            <BookUser size="54px" className="flex items-center stroke-primary" />
+            <BookUser
+              size="54px"
+              className="flex items-center stroke-primary"
+            />
             สมัครสมาชิก
           </h1>
           <div className="flex flex-col gap-5 w-full">
@@ -101,6 +104,17 @@ function RegisterComp() {
                 value={input.password}
               />
             </div>
+            <div className="input input-bordered flex items-center gap-2 w-full">
+              <KeyRound />
+              <input
+                type="password"
+                className="grow"
+                placeholder="พิมพ์รหัสผ่านอีกครั้ง"
+                name="confirmPassword"
+                onChange={hdlChange}
+                value={input.confirmPassword}
+              />
+            </div>
           </div>
 
           <div className="flex justify-between items-center w-full gap-5 mt-5">
@@ -117,7 +131,7 @@ function RegisterComp() {
             </button>
           </div>
 
-          <hr className="opacity-20"/>
+          <hr className="opacity-20" />
 
           <span className="text-center mt-5">
             มีบัญชีแล้วใช่ไหม{" "}

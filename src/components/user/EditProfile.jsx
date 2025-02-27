@@ -9,7 +9,7 @@ function EditProfile() {
       <div className="flex flex-col p-6 transition-all duration-300 w-[calc(100vw-350px)]">
         <div className="container h-screen">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+            <h1 className="text-3xl font-bold">Profile</h1>
             <Logout />
           </div>
 

@@ -22,6 +22,21 @@ const useUserStore = create(
         set({ currentUser: res.data });
         return res.data;
       },
+      createNewAccount: async (input) => {
+        const res = await axios.post(
+          "http://localhost:8000/api/register",
+          input
+        );
+      },
+      updateUser: async (token, body) => {
+        const res = await axios.put(
+          "http://localhost:8000/user/profile",
+          body,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+      },
       logout: () => set({ token: "", user: null }),
     }),
     {

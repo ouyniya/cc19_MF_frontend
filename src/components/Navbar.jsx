@@ -1,9 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { LogoIcon, MenuIcon } from "../icons";
 import { Link } from "react-router";
+import useUserStore from "../stores/useUserStore";
 
 function Navbar() {
-
+  const currentUser = useUserStore((state) => state.currentUser);
   const detailsRef = useRef(null);
 
   const handleClickOutside = (event) => {
@@ -21,9 +22,9 @@ function Navbar() {
   };
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside); // 3️⃣ เริ่มฟัง event คลิกที่ document
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside); // 4️⃣ ทำความสะอาดเมื่อ component ถูก unmount
+      document.removeEventListener("click", handleClickOutside); // เมื่อ component ถูก unmount
     };
   }, []);
 
@@ -95,18 +96,39 @@ function Navbar() {
             </li>
           </ul>
         </div>
+        {/* register and login */}
         <div className="navbar-end flex gap-3">
-          <Link to="register">
-            <button className="btn rounded-full text-white bg-[var(--blue)] border-[var(--blue)] hover:bg-[var(--blue)] hover:border-[var(--blue)]">
-              Register
-            </button>
-          </Link>
-          <Link to="login">
-            <button className="btn rounded-full text-white bg-[var(--blue)] border-white border-2 hover:bg-[var(--blue)] hover:border-white">
-              Sign in
-            </button>
-          </Link>
+          {currentUser ? (
+            <>
+              <p className="text-white">{currentUser.user.username}</p>
+              <Link to={currentUser.user.role === "ADMIN" ? "/admin" : "user"}>
+                <div className="avatar">
+                  <div className="w-[40px] rounded-full hover:ring-2 hover:ring-blue-300">
+                    <img
+                      src={currentUser.user.profileImage}
+                      alt="Profile"
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  </div>
+                </div>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="register">
+                <button className="btn rounded-full text-white bg-[var(--blue)] border-[var(--blue)] hover:bg-[var(--blue)] hover:border-[var(--blue)]">
+                  Register
+                </button>
+              </Link>
+              <Link to="login">
+                <button className="btn rounded-full text-white bg-[var(--blue)] border-white border-2 hover:bg-[var(--blue)] hover:border-white">
+                  Sign in
+                </button>
+              </Link>
+            </>
+          )}
         </div>
+
         {/* end: large size */}
       </div>
       <div className="pt-[75px]"></div>

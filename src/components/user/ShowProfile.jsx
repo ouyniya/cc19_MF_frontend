@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { createAlert } from "../../utils/createAlert";
 import useUserStore from "../../stores/useUserStore";
+import RiskQuizBtn from "../riskAssessment/RiskQuizBtn";
 
 function ShowProfile() {
   const token = useUserStore((state) => state.token);
@@ -13,15 +14,13 @@ function ShowProfile() {
       await getCurrentUser(token);
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
-      createAlert("error", errMsg);
+      createAlert("info", errMsg);
     }
   };
 
   useEffect(() => {
     getUser();
   }, []);
-
-  
 
   // { username: "bam", email: "bambam@bammail.com"}
 
@@ -30,7 +29,9 @@ function ShowProfile() {
       <div className="p-6 w-full flex flex-col items-center gap-[48px]">
         {/* User Details */}
         <div className="flex-1 w-full">
-          <h2 className="text-2xl font-semibold">{currentUser?.user.username}</h2>
+          <h2 className="text-2xl font-semibold">
+            {currentUser?.user.username}
+          </h2>
           <p className="text-sm">{currentUser?.user.email}</p>
 
           <div className="mt-4 space-y-3">
@@ -44,13 +45,11 @@ function ShowProfile() {
             </div>
             <div className="flex items-center">
               <span className="w-[150px] opacity-70">ระดับความเสี่ยง:</span>
-              <span className="font-bold">{currentUser?.user.userRiskAssessments[0].userRiskLevelId}</span>
-            </div>
-            <div className="flex items-center">
-              <span className="w-[150px] opacity-70">
-                วันที่ทำแบบประเมินความเสี่ยงล่าสุด:
+              <span className="font-bold">
+                {!currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId
+                  ? <RiskQuizBtn />
+                  : currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId}
               </span>
-              <span className="font-medium">{currentUser?.user.userRiskAssessments[0].createdAt}</span>
             </div>
           </div>
         </div>

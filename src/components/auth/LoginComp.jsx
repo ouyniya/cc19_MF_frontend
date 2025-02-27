@@ -46,7 +46,7 @@ function LoginComp() {
     } catch (error) {
       // console.log(error.response?.data.message)
       const errMsg = error.response?.data?.message || error.message;
-      createAlert("error", errMsg);
+      createAlert("info", errMsg);
     }
   };
 
