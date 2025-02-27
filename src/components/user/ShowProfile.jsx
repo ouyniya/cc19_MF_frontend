@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { createAlert } from "../../utils/createAlert";
 import useUserStore from "../../stores/useUserStore";
 import RiskQuizBtn from "../riskAssessment/RiskQuizBtn";
+import { MailIcon } from "lucide-react";
 
 function ShowProfile() {
   const token = useUserStore((state) => state.token);
@@ -22,8 +23,6 @@ function ShowProfile() {
     getUser();
   }, []);
 
-  // { username: "bam", email: "bambam@bammail.com"}
-
   return (
     <>
       <div className="p-6 w-full flex flex-col items-center gap-[48px]">
@@ -32,7 +31,10 @@ function ShowProfile() {
           <h2 className="text-2xl font-semibold">
             {currentUser?.user.username}
           </h2>
-          <p className="text-sm">{currentUser?.user.email}</p>
+          <div className="flex gap-1">
+            <p className="text-sm">{currentUser?.user.email}</p>
+            <MailIcon size="16px" className="stroke-blue-500" />
+          </div>
 
           <div className="mt-4 space-y-3">
             <div className="flex items-center">
@@ -46,9 +48,11 @@ function ShowProfile() {
             <div className="flex items-center">
               <span className="w-[150px] opacity-70">ระดับความเสี่ยง:</span>
               <span className="font-bold">
-                {!currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId
-                  ? <RiskQuizBtn />
-                  : currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId}
+                {!currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId ? (
+                  <RiskQuizBtn />
+                ) : (
+                  currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId
+                )}
               </span>
             </div>
           </div>

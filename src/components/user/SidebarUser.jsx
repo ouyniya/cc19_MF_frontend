@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router";
 import { UserPen, HandCoins, Heart, HomeIcon } from "lucide-react";
 import { Link } from "react-router";
+import useUserStore from "../../stores/useUserStore";
 
 function SidebarUser() {
+  const currentUser = useUserStore((state) => state.currentUser);
+  const location = useLocation();
+
   return (
     <>
       {/* Sidebar */}
@@ -11,11 +16,22 @@ function SidebarUser() {
       >
         <div className="flex flex-col justify-between h-full ">
           <div className="h-full">
-            <ul className="menu first-line:flex flex-col gap-0 ">
-              <div className="h-[250px] bg-[var(--gray)] text-center text-white">
-                profile1
+            <ul className="menu first-line:flex flex-col gap-0">
+              <div className="flex flex-col justify-center items-center h-[250px] text-center text-white">
+                <div className="avatar">
+                  <div className="w-[180px] rounded-full hover:ring-2 hover:ring-blue-400">
+                    <img
+                      src={currentUser.user.profileImage}
+                      alt="Profile"
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  </div>
+                </div>
+                <h1 className="text-2xl font-bold">
+                  {currentUser.user.username}
+                </h1>
               </div>
-              <li className="">
+              <li className="mt-[24px]">
                 <Link
                   to="/user"
                   className="py-3 rounded-xl hover:bg-[var(--bluehover)] hover:text-blue-200 visited:bg-[var(--blue)] visited:text-white"
@@ -23,6 +39,11 @@ function SidebarUser() {
                 >
                   <UserPen />
                   Profile
+                  {location.pathname === "/user" ? (
+                    <span className="badge badge-xs badge-accent"></span>
+                  ) : (
+                    ""
+                  )}
                 </Link>
               </li>
               <li className="">
@@ -33,7 +54,11 @@ function SidebarUser() {
                 >
                   <HandCoins />
                   Investment
-                  <span className="badge badge-xs badge-accent"></span>
+                  {location.pathname === "/user/investment" ? (
+                    <span className="badge badge-xs badge-accent"></span>
+                  ) : (
+                    ""
+                  )}
                 </Link>
               </li>
               <li className="">
@@ -44,13 +69,21 @@ function SidebarUser() {
                 >
                   <Heart />
                   Wishlist
+                  {location.pathname === "/user/wishlist" ? (
+                    <span className="badge badge-xs badge-accent"></span>
+                  ) : (
+                    ""
+                  )}
                 </Link>
               </li>
             </ul>
           </div>
 
-          <Link to='/'>
-          <div className="flex justify-start gap-2 items-center h-[120px] px-[24px] text-lg  hover:cursor-pointer"><HomeIcon />กลับหน้าหลัก</div>
+          <Link to="/">
+            <div className="flex justify-center gap-2 items-center h-[120px] px-[24px] text-xl hover:cursor-pointer hover:bg-[var(--bluehover)] transition hover:transition-all duration-1000 ease-in-out">
+              <HomeIcon size="32px" />
+              กลับหน้าหลัก
+            </div>
           </Link>
         </div>
       </div>

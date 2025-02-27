@@ -54,17 +54,18 @@ function EditPersonal() {
         <input
           type="file"
           accept="image/*"
-          onChange={handleFileChange}
+          onChange={handleFileChange} // เวลาเพิ่มรูปจะแสดงตัวอย่างทันทีเลย
           className="hidden"
           id="fileInput"
         />
         {/*  edit avatar */}
         <div className="relative flex basis-1/4 justify-center items-start">
           <div className="avatar">
+            {/* htmlFor="fileInput" >> label ของ input ข้างบน */}
             <label htmlFor="fileInput" className="cursor-pointer">
               <div className="absolute z-10 bottom-1 right-2 rounded-full bg-secondary px-[8px] py-[2px] flex justify-center items-center hover:ring-2">
                 <div className="tooltip" data-tip="แก้ไขรูป Profile">
-                  <Pencil className="w-[12px] stroke-blue-900 hover:stroke-pink-700" />
+                  <Pencil className="w-[12px] stroke-white" />
                 </div>
               </div>
             </label>
@@ -135,7 +136,9 @@ function EditPersonal() {
 
             {/* save button */}
             <div className="flex justify-end mx-[24px] mt-[24px]">
-              <button className="btn btn-primary">บันทึก</button>
+              <button className="btn text-white bg-[var(--blue)] hover:btn-secondary">
+                บันทึก
+              </button>
             </div>
           </div>
         </form>

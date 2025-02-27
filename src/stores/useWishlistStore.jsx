@@ -5,10 +5,17 @@ const useWishlistStore = create((set) => ({
   wishlists: [],
   currentWishlist: null,
   getWishlists: async (token) => {
-    const rs = await axios.get(`http://localhost:8000/wishlist`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    set({ wishlist: rs.data.wishlists })
+    const res = await axios.get(`http://localhost:8000/wishlist`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(res);
+    set({ wishlists: res.data.wishlists });
+  },
+  addWishlist: async (token) => {
+    const res = await axios.post(`http://localhost:8000/wishlist`, body, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(res);
   },
   setCurrentWishlist: (wishlist) => set({ currentWishlist: wishlist }),
   // updatePost: async (postId, token, body) => {

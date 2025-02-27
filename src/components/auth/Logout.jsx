@@ -16,7 +16,7 @@ function Logout() {
   };
 
   return (
-    <button className="btn text-white bg-[var(--blue)] hover:bg-[var(--blue)] border-[var(--blue)] hover:border-[var(--blue)] rounded-full" onClick={hdlLogout}>
+    <button className="btn text-white bg-[var(--blue)] border-[var(--blue)] hover:btn-secondary rounded-full" onClick={hdlLogout}>
       <LogOut />
       Logout
     </button>
