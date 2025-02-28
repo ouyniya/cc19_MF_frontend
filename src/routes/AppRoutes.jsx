@@ -51,8 +51,8 @@ function AppRoutes() {
           element={<ProtectRoutes el={<LayoutAdmin />} allows={["ADMIN"]} />}
         >
           <Route index element={<AdminProfile />} />
-          <Route path="analytics" element={<Analytics />} />
           <Route path="manage" element={<UserManagement />} />
+          <Route path="analytics" element={<Analytics />} />
         </Route>
 
         <Route path="*" element={<h1>404 not found</h1>} />

@@ -11,8 +11,6 @@ function Fund() {
         <h1 className='text-5xl font-bold text-center mb-[32px]'>เลือกกองทุนรวมที่ใช่</h1>
         <HowToChoose />
         <SearchBox />
-        <FilterFund />
-        <ResultTable />
     </div>
   
     </>

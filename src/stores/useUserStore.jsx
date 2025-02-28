@@ -37,7 +37,7 @@ const useUserStore = create(
           }
         );
       },
-      logout: () => set({ token: "", user: null }),
+      logout: () => set({ token: "", user: null, currentUser: null }),
     }),
     {
       name: "state",

@@ -23,6 +23,8 @@ function ShowProfile() {
     getUser();
   }, []);
 
+  console.log(currentUser);
+
   return (
     <>
       <div className="p-6 w-full flex flex-col items-center gap-[48px]">
@@ -46,14 +48,21 @@ function ShowProfile() {
               <span className="font-medium">{currentUser?.user.email}</span>
             </div>
             <div className="flex items-center">
-              <span className="w-[150px] opacity-70">ระดับความเสี่ยง:</span>
-              <span className="font-bold">
-                {!currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId ? (
-                  <RiskQuizBtn />
-                ) : (
-                  currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId
-                )}
-              </span>
+              {currentUser.user.role === "ADMIN" ? (
+                ""
+              ) : (
+                <>
+                  <span className="w-[150px] opacity-70">ระดับความเสี่ยง:</span>
+                  <span className="font-bold">
+                    {!currentUser?.user?.userRiskAssessments[0]
+                      ?.userRiskLevelId ? (
+                      <RiskQuizBtn />
+                    ) : (
+                      currentUser?.user?.userRiskAssessments[0]?.userRiskLevelId
+                    )}
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </div>

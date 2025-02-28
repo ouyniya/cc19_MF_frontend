@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import useWishlistStore from "../../stores/useWishlistStore";
-import { PlusCircleIcon } from "lucide-react";
+import { BadgeAlert, PlusCircleIcon } from "lucide-react";
 import useFundStore from "../../stores/useFundStore";
+import useUserStore from "../../stores/useUserStore";
 import { createAlert } from "../../utils/createAlert";
 
 function AddWishlist() {
+  const token = useUserStore((state) => state.token);
   const [classAbbrName, setClassAbbrName] = useState("");
   const [classAbbrNameWait, setClassAbbrNameWait] = useState(""); // for fetching
   const [rating, setRating] = useState(3);
   const [note, setNote] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-  const [checkNote, setCheckNote] = useState('') // check note length
+  const [checkNote, setCheckNote] = useState(""); // check note length
+  const [otherError, setOtherError] = useState("");
+  const getWishlists = useWishlistStore((state) => state.getWishlists);
 
   const addWishlist = useWishlistStore((state) => state.addWishlist);
   const fundNames = useFundStore((state) => state.fundNames);
@@ -35,6 +39,7 @@ function AddWishlist() {
   const hdlFundNameChange = (e) => {
     setClassAbbrName(e.target.value);
     setShowDropdown(true); // แสดง dropdown เมื่อพิมพ์
+    setOtherError("");
   };
 
   const handleSelect = (name) => {
@@ -42,7 +47,32 @@ function AddWishlist() {
     setShowDropdown(false); // ซ่อน dropdown หลังจากเลือกค่า
   };
 
-//   console.log("****", fundNames);
+  const hdlAddWishlist = async () => {
+    try {
+      const body = {
+        interestRating: rating,
+        note: note,
+        classAbbrName: classAbbrName,
+      };
+      await addWishlist(token, body);
+      await getWishlists(token);
+
+      // // clear data
+      setClassAbbrName("");
+      setClassAbbrNameWait("");
+      setRating(3);
+      setNote("");
+
+      document.getElementById("add-wishlist-form").close();
+      createAlert("success", "เพิ่ม Wishlist เรียบร้อยแล้ว");
+    } catch (error) {
+      const errMsg = error.response?.data?.message || error.message;
+      //   console.log(errMsg);
+      setOtherError(errMsg);
+    }
+  };
+
+  //   console.log("****", fundNames);
   //
   return (
     <>
@@ -56,6 +86,13 @@ function AddWishlist() {
               </h2>
             </div>
 
+            {/* alert error */}
+            { otherError &&
+              <div role="alert" className="alert alert-error">
+                <BadgeAlert />
+                <span>{otherError}</span>
+              </div>
+            }
             <p className="mb-[8px]">ชื่อย่อกองทุน</p>
             {/* <classAbbr Edit /> */}
             <input
@@ -68,7 +105,7 @@ function AddWishlist() {
             <div className="relative">
               <div className="absolute top-0 rounded-lg bg-white z-10 w-full max-h-[200px] overflow-scroll">
                 <ul className="bg-white">
-                  {showDropdown &&  fundNames?.result?.length > 0
+                  {showDropdown && fundNames?.result?.length > 0
                     ? fundNames.result.map((el, index) => (
                         <li
                           key={index}
@@ -83,7 +120,7 @@ function AddWishlist() {
               </div>
             </div>
             <p className="mb-[8px] mt-[12px]">Note ของคุณ</p>
-            
+
             {/* check note*/}
             <p className="text-secondary">{checkNote}</p>
             {/* <NoteEdit /> */}
@@ -93,14 +130,13 @@ function AddWishlist() {
               value={note}
               onChange={(e) => {
                 if (e.target.value.length >= 100) {
-                    setCheckNote("ความยาวของ Note เกิน 100 ตัวอักษร")
-                    setNote(e.target.value.slice(0, 100))
+                  setCheckNote("ความยาวของ Note เกิน 100 ตัวอักษร");
+                  setNote(e.target.value.slice(0, 100));
                 } else {
-                    setNote(e.target.value)
-                    setCheckNote("")
+                  setNote(e.target.value);
+                  setCheckNote("");
                 }
-            }
-            }
+              }}
               rows={note.split("\n").length}
             />
             <p className="mb-[8px] mt-[12px]">คะแนนความชอบของคุณ</p>
@@ -121,7 +157,10 @@ function AddWishlist() {
               </div>
             </div>
             <div className="card-actions justify-end">
-              <button className="btn btn-primary rounded-full hover:btn-secondary">
+              <button
+                onClick={hdlAddWishlist}
+                className="btn btn-primary rounded-full hover:btn-secondary"
+              >
                 บันทึก
               </button>
             </div>

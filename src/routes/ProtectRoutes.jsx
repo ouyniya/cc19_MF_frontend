@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
 
 function ProtectRoutes(props) {
@@ -34,7 +34,13 @@ function ProtectRoutes(props) {
 
   // loading part
   if (ok === null) {
-    return <h1>Loading...</h1>
+    return (
+      <DotLottieReact
+        src="https://lottie.host/e67dbfbb-f98e-4af3-9384-ac4504a18ed9/kQLUf1z89W.lottie"
+        loop
+        autoplay
+      />
+    );
   }
 
   if (!ok) {
@@ -44,3 +50,7 @@ function ProtectRoutes(props) {
 }
 
 export default ProtectRoutes;
+
+
+import React from 'react';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';

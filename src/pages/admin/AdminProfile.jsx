@@ -1,12 +1,14 @@
-import React from 'react'
+import React from "react";
+import EditProfile from "../../components/user/EditProfile";
 
 function AdminProfile() {
-
   return (
     <>
-    hjkhjkhjk
+      <div className="ml-[280px]">
+        <EditProfile />
+      </div>
     </>
-  )
+  );
 }
 
-export default AdminProfile
+export default AdminProfile;

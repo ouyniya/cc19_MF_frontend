@@ -21,7 +21,7 @@ function Wishlists() {
     getWishlists(token);
   }, []);
 
-  console.log(wishlists);
+  // console.log(wishlists);
 
   return (
     <>
@@ -41,7 +41,7 @@ function Wishlists() {
             {/* all cards */}
             {wishlists.map((wishlist, index) => (
               <WishlistItem key={index} wishlist={wishlist} />
-            ))}
+            )) || "คุณยังไม่ได้เพิ่ม wishlist"}
           </div>
         </div>
       </div>
