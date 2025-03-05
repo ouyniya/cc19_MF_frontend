@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router";
-import { UserPen, HandCoins, Heart, HomeIcon } from "lucide-react";
+import { UserPen, HandCoins, Heart, HomeIcon, User2 } from "lucide-react";
 import { Link } from "react-router";
 import useUserStore from "../../stores/useUserStore";
 
@@ -20,15 +20,21 @@ function SidebarUser() {
               <div className="flex flex-col justify-center items-center h-[250px] text-center text-white">
                 <div className="avatar">
                   <div className="w-[180px] rounded-full hover:ring-2 hover:ring-blue-400">
-                    <img
-                      src={currentUser.user.profileImage}
-                      alt="Profile"
-                      className="w-full h-full rounded-full object-cover"
-                    />
+                    {currentUser?.user.profileImage ? (
+                      <img
+                        src={currentUser?.user.profileImage}
+                        alt="Profile"
+                        className="w-full h-full rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex flex-col gap-2 justify-center items-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                        <User2 className="w-full h-[100px] text-white" />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <h1 className="text-2xl font-bold">
-                  {currentUser.user.username}
+                  {currentUser?.user.username}
                 </h1>
               </div>
               <li className="mt-[24px]">

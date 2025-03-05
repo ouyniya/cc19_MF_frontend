@@ -23,14 +23,14 @@ function SidebarAdmin() {
                 <div className="avatar">
                   <div className="w-[180px] rounded-full hover:ring-2 hover:ring-blue-400">
                     <img
-                      src={currentUser.user.profileImage}
+                      src={currentUser?.user.profileImage}
                       alt="Profile"
                       className="w-full h-full rounded-full object-cover"
                     />
                   </div>
                 </div>
                 <h1 className="text-2xl font-bold">
-                  {currentUser.user.username}
+                  {currentUser?.user.username}
                 </h1>
               </div>
               <li className="mt-[24px]">

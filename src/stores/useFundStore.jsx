@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const useWishlistStore = create((set) => ({
+const useFundStore = create((set) => ({
   fundNames: [],
   filteredFunds: [],
   company: [],
@@ -51,6 +51,25 @@ const useWishlistStore = create((set) => ({
     // console.log('url...',url);
     set({ filteredFunds: res.data });
   },
+  getFilteredAndSortedFunds: async (
+    classAbbrName,
+    companyId,
+    fundCompareGroup,
+    fundRiskLevelId,
+    investCountryFlag,
+    dividendPolicy,
+    page,
+    limit,
+    sortBy,
+    performanceType,
+    performancePeriod
+  ) => {
+    const res = await axios.get(
+      `http://localhost:8000/funds/sort?classAbbrName=${classAbbrName}&companyId=${companyId}&fundCompareGroup=${fundCompareGroup}&fundRiskLevelId=${fundRiskLevelId}&investCountryFlag=${investCountryFlag}&dividendPolicy=${dividendPolicy}&page=${page}&limit=${limit}&sortBy=${sortBy}&performanceType=${performanceType}&performancePeriod=${performancePeriod}`
+    );
+    // console.log('url...',url);
+    set({ filteredFunds: res.data });
+  },
 }));
 
-export default useWishlistStore;
+export default useFundStore;

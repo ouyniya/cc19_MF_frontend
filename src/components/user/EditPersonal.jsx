@@ -13,7 +13,7 @@ function EditPersonal() {
   const [email, setEmail] = useState(user?.email || "");
   const [username, setUsername] = useState(user?.username || "");
   const [file, setFile] = useState(null);
-  const [filePreview, setFilePreview] = useState(user.profileImage);
+  const [filePreview, setFilePreview] = useState(user?.profileImage);
 
   const hdlUpdateProfile = async (e) => {
     try {
@@ -22,7 +22,7 @@ function EditPersonal() {
       if (email) body.append("email", email);
       if (username) body.append("username", username);
       if (file) body.append("profile", file);
-      console.log(email, username, file);
+      // console.log(email, username, file);
 
       // validate >> if no change
       if (email === user?.email && username === user?.username && !file) {
@@ -35,7 +35,7 @@ function EditPersonal() {
       }
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
-      console.log(error);
+      // console.log(error);
       createAlert("info", errMsg);
     }
   };
@@ -95,7 +95,7 @@ function EditPersonal() {
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                     className="grow ml-3"
-                    placeholder={user.email}
+                    placeholder={user?.email}
                   />
                 </div>
                 <div className="input input-bordered flex items-center basis-1/2 ">
@@ -106,7 +106,7 @@ function EditPersonal() {
                     onChange={(e) => setUsername(e.target.value)}
                     value={username}
                     className="grow ml-3"
-                    placeholder={user.username}
+                    placeholder={user?.username}
                   />
                 </div>
               </div>

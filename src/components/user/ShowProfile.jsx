@@ -23,7 +23,7 @@ function ShowProfile() {
     getUser();
   }, []);
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <>
@@ -48,7 +48,7 @@ function ShowProfile() {
               <span className="font-medium">{currentUser?.user.email}</span>
             </div>
             <div className="flex items-center">
-              {currentUser.user.role === "ADMIN" ? (
+              {currentUser?.user.role === "ADMIN" ? (
                 ""
               ) : (
                 <>

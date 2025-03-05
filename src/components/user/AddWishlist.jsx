@@ -103,8 +103,8 @@ function AddWishlist() {
               rows={note.split("\n").length}
             />
             <div className="relative">
-              <div className="absolute top-0 rounded-lg bg-white z-10 w-full max-h-[200px] overflow-scroll">
-                <ul className="bg-white">
+              <div className="absolute top-0 rounded-lg z-10 w-full max-h-[200px] overflow-scroll">
+                <ul className="">
                   {showDropdown && fundNames?.result?.length > 0
                     ? fundNames.result.map((el, index) => (
                         <li

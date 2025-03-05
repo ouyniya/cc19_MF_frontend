@@ -4,7 +4,7 @@ import { Filter, BookOpenText, MessageSquareMore } from 'lucide-react';
 function HowToChoose() {
   return (
     <>
-    <div className="collapse bg-[var(--whiteblue)] mb-[48px] mx-[16px] ">
+    <div className="collapse mb-[48px] mx-[16px] ">
         <input type="checkbox" />
         <div className="collapse-title text-xl font-medium ">
             ขั้นตอนการเลือกกองทุนรวมที่ใช่

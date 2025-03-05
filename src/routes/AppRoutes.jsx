@@ -32,7 +32,6 @@ function AppRoutes() {
           <Route path="fund" element={<Fund />} />
           <Route path="risk-assessment" element={<RiskAssessment />} />
           <Route path="risk-assessment-result" element={<RiskResult />} />
-          <Route path="not-found" element={<NotFound />} />
         </Route>
 
         {/* Private: user */}
@@ -55,7 +54,7 @@ function AppRoutes() {
           <Route path="analytics" element={<Analytics />} />
         </Route>
 
-        <Route path="*" element={<h1>404 not found</h1>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

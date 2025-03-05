@@ -1,8 +1,6 @@
 import React from 'react'
 import HowToChoose from '../../components/fund/HowToChoose'
 import SearchBox from '../../components/fund/SearchBox'
-import ResultTable from '../../components/fund/ResultTable'
-import FilterFund from '../../components/fund/FilterFund'
 
 function Fund() {
   return (

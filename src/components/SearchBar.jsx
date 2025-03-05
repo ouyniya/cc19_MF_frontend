@@ -1,23 +1,40 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
 
 function SearchBar() {
   return (
     <>
-        <div className='m-auto w-full px-[21px]'>
-            <div className='xl:px-[84px] md:flex justify-between gap-3 px-[24px] py-[36px] w-full bg-slate-200 dark:bg-base-200 rounded-2xl'>
-                <div className='md:flex lg:w-auto w-[200px]'>
-                    <p className='xl:text-2xl text-xl font-medium'>ค้นหาจากชื่อกองทุน</p>
-                </div>
-                <div className='md:flex md:basis-3/5 mt-[12px]'>
-                    <input type="text" className='input md:input-lg w-full rounded-full' placeholder='ใส่ชื่อกองทุนที่นี่'/>
-                </div>
-                <div className='flex flex-1/5 md:items-center md:justify-center mt-[12px]'>
-                    <button className='btn md:btn-lg w-full bg-[var(--blue)] hover:bg-[var(--blue)] border-[var(--blue)] text-white rounded-full md:px-[48px] md-[24px] py-[8px]'>ค้นหา</button>
-                </div>
-            </div>
-        </div>
+      <div className="grid place-content-center px-4 py-24">
+        <h1 className="max-w-2xl text-center text-4xl leading-snug">
+          กำลังมองหากองทุนอยู่ใช่ไหม... <br />
+          <p className="text-5xl mt-[16px]">
+            ค้นหา{" "}
+            <span className="relative font-bold text-[var(--blue)]">
+              กองทุนที่ใช่
+              <svg
+                viewBox="0 0 286 73"
+                fill="none"
+                className="absolute -left-2 -right-2 -top-2 bottom-0 translate-y-1"
+              >
+                <motion.path
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  transition={{
+                    duration: 1.25,
+                    ease: "easeInOut",
+                  }}
+                  d="M142.293 1C106.854 16.8908 6.08202 7.17705 1.23654 43.3756C-2.10604 68.3466 29.5633 73.2652 122.688 71.7518C215.814 70.2384 316.298 70.689 275.761 38.0785C230.14 1.37835 97.0503 24.4575 52.9384 1"
+                  stroke="#FF82AC"
+                  strokeWidth="3"
+                />
+              </svg>
+            </span>{" "}
+            ของคุณได้ที่นี่
+          </p>
+        </h1>
+      </div>
     </>
-  )
+  );
 }
 
-export default SearchBar
+export default SearchBar;

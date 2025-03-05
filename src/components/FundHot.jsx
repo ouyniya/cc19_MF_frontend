@@ -2,11 +2,19 @@ import { FfsIcon } from "../icons";
 // import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 function FundHot({ funds }) {
+  // const renderConfig = {
+  //   autoResize: true,
+  // };
   return (
     <>
       <div className="lg:flex py-[48px] px-[24px] w-full gap-5">
         <div className="lg:basis-1/2 mb-[24px] lg:mb-[0px] w-full">
-          {/* <DotLottieReact src="/src/assets/header2.lottie" loop autoplay /> */}
+          {/* <DotLottieReact
+            src="/src/assets/header2.lottie"
+            loop
+            autoplay
+            renderConfig={renderConfig}
+          /> */}
         </div>
 
         <div className="relative flex flex-col justify-between h-auto w-full rounded-2xl lg:basis-1/2">

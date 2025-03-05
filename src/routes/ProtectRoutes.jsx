@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
+import { Loader } from "lucide-react";
+import { Link } from "react-router";
 
 function ProtectRoutes(props) {
   const { el, allows } = props;
@@ -34,23 +36,35 @@ function ProtectRoutes(props) {
 
   // loading part
   if (ok === null) {
-    return (
-      <DotLottieReact
-        src="https://lottie.host/e67dbfbb-f98e-4af3-9384-ac4504a18ed9/kQLUf1z89W.lottie"
-        loop
-        autoplay
-      />
-    );
+    return <Loader />;
   }
 
   if (!ok) {
-    return <h1>Unauthorized!!!</h1>;
+    return (
+      <div className="flex justify-center items-center w-screen h-screen m-auto">
+        <div className="text-center">
+          <h1 className="text-9xl font-black">401</h1>
+
+          <p className="text-2xl font-bold tracking-tight sm:text-4xl">
+            Uh-oh!
+          </p>
+
+          <p className="mt-4 text-gray-500">
+            คุณไม่สามารถเข้าใช้งานหน้านี้ได้
+            <br />
+            กรุณาลงชื่อเข้าใช้งาน <Link to='/login' className="link link-primary">ที่นี่</Link> หรือตรวจสอบสิทธิ์ของคุณผู้ดูแลระบบอีกครั้ง
+          </p>
+
+          <Link to='/'
+            className="btn btn-primary text-white btn-md mt-[24px]"
+          >
+            กลับหน้าหลัก
+          </Link>
+        </div>
+      </div>
+    );
   }
   return <>{el}</>;
 }
 
 export default ProtectRoutes;
-
-
-import React from 'react';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';

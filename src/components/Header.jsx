@@ -1,7 +1,11 @@
 import React from "react";
+import { Link } from "react-router";
 // import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 // auto resize !!!!!
 function Header() {
+  // const renderConfig = {
+  //   autoResize: true,
+  // };
   return (
     <>
       <div className="xl:flex xl:h-[590px] flex-0 justify-between gap-5 w-full p-9">
@@ -32,17 +36,24 @@ function Header() {
           </div>
           {/* register button */}
           <div>
-            <button
-              className="btn btn-ghost btn-lg rounded-full bg-[var(--blue)] hover:bg-[var(--darkblue)] shadow-md dark:shadow-base-300 shadow-[var(--lightblue)]
+            <Link to="/register">
+              <button
+                className="btn btn-ghost btn-lg rounded-full bg-[var(--blue)] hover:bg-[var(--darkblue)] shadow-md dark:shadow-base-300 shadow-[var(--lightblue)]
                      text-white"
-            >
-              สมัครสมาชิก
-            </button>
+              >
+                สมัครสมาชิก
+              </button>
+            </Link>
           </div>
         </div>
         {/* header image */}
         <div className="flex flex-1 justify-center items-center h-[500px]">
-          {/* <DotLottieReact src="/src/assets/header.lottie" loop autoplay /> */}
+          {/* <DotLottieReact
+            src="/src/assets/header.lottie"
+            loop
+            autoplay
+            renderConfig={renderConfig}
+          /> */}
         </div>
       </div>
     </>

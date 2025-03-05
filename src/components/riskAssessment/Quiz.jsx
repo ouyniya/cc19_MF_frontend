@@ -1,67 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-
-const quizQuestions = [
-  {
-    question: "What is the capital of France?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    answer: "Paris",
-  },
-  { question: "What is 2 + 2?", options: ["3", "4", "5", "6"], answer: "4" },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-];
+import useRiskAssessmentStore from "../../stores/useRiskAssessmentStore";
+import { createAlert } from "../../utils/createAlert";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 function Quiz() {
+  const getRiskQuiz = useRiskAssessmentStore((state) => state.getRiskQuiz);
+  const riskQuiz = useRiskAssessmentStore(
+    (state) => state.riskQuiz?.riskQuestion
+  );
+  const saveScore = useRiskAssessmentStore((state) => state.saveScore);
+  const score = useRiskAssessmentStore((state) => state.score);
+
+  useEffect(() => {
+    getRiskQuiz();
+  }, []);
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState({}); // object {1: Ans1, 2: Ans2}
-  const [allScore, setAllScore] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState({
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
+    9: null,
+    10: null,
+  }); // object {1: Ans1, 2: Ans2}
+
+  let scoreall = 0;
+
+  // find all scores
+  if (selectedAnswers) {
+    for (let el in selectedAnswers) {
+      scoreall += selectedAnswers[el];
+      // console.log(selectedAnswers[el]);
+    }
+  }
 
   const handleSelect = (option, score) => {
-    setSelectedAnswers({ ...selectedAnswers, [currentIndex]: option });
-    setAllScore((prev) => prev + score);
+    setSelectedAnswers({ ...selectedAnswers, [option]: score });
+    // console.log(option, score);
   };
 
+  // console.log(selectedAnswers);
+
   const nextQuestion = () => {
-    if (currentIndex < quizQuestions.length - 1) {
+    if (selectedAnswers[currentIndex + 1] === null) {
+      createAlert("info", "กรุณาตอบคำถามก่อนไปข้อถัดไป");
+      return;
+    }
+    if (currentIndex < riskQuiz?.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -74,8 +65,8 @@ function Quiz() {
 
   return (
     <>
-      <h1 className="text-2xl text-center">{allScore}</h1>
-      <div className="flex flex-col items-center justify-start min-h-[calc(100vh-575px)] text-gray-800">
+      {/* <h1 className="text-2xl text-center">{scoreall}</h1> */}
+      <div className="flex flex-col items-center justify-start min-h-[calc(100vh-575px)] text-gray-800 my-[32px]">
         <div className="flex">
           <ul className="steps">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((step, index) => (
@@ -88,53 +79,124 @@ function Quiz() {
             ))}
           </ul>
         </div>
-        <div className="bg-white px-[54px] py-[48px] rounded-xl shadow-lg w-full max-w-xl min-w-[350px] text-center">
-          <h2 className="text-xl font-semibold mb-4">
-            {quizQuestions[currentIndex].question}
-          </h2>
-          <div className="space-y-2">
-            {quizQuestions[currentIndex].options.map((option, idx) => (
-              <button
-                key={idx}
-                className={`w-full py-2 rounded-lg border transition-colors ${
-                  selectedAnswers[currentIndex] === option
-                    ? "bg-primary text-white"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-200"
-                }`}
-                onClick={() => handleSelect(option, idx + 1)}
-              >
-                {option}
-              </button>
-            ))}
+
+        <div className="bg-white px-[54px] py-[48px] rounded-xl shadow-lg w-full max-w-xl min-w-[350px]">
+          <div className="flex flex-col">
+            <h2 className="text-2xl font-semibold mb-4">
+              {" "}
+              {riskQuiz ? riskQuiz[currentIndex]?.question : ""}
+            </h2>
+            <div className="w-full">
+              <div className="flex">
+                <label className="label cursor-pointer text-left">
+                  <input
+                    type="radio"
+                    value="1"
+                    name={currentIndex + 1}
+                    className="radio radio-primary mr-[12px]"
+                    checked={selectedAnswers[currentIndex + 1] === 1}
+                    onChange={() => handleSelect(currentIndex + 1, 1)}
+                  />
+                  <span className="label-text text-lg">
+                    {" "}
+                    {riskQuiz ? riskQuiz[currentIndex]?.option1 : ""}
+                  </span>
+                </label>
+              </div>
+              <div className="flex">
+                <label className="label cursor-pointer text-left">
+                  <input
+                    type="radio"
+                    value="2"
+                    name={currentIndex + 1}
+                    className="radio radio-primary mr-[12px]"
+                    checked={selectedAnswers[currentIndex + 1] === 2}
+                    onChange={() => handleSelect(currentIndex + 1, 2)}
+                  />
+                  <span className="label-text text-lg">
+                    {" "}
+                    {riskQuiz ? riskQuiz[currentIndex]?.option2 : ""}
+                  </span>
+                </label>
+              </div>
+              <div className="flex">
+                <label className="label cursor-pointer text-left">
+                  <input
+                    type="radio"
+                    value="3"
+                    name={currentIndex + 1}
+                    className="radio radio-primary mr-[12px]"
+                    checked={selectedAnswers[currentIndex + 1] === 3}
+                    onChange={() => handleSelect(currentIndex + 1, 3)}
+                  />
+                  <span className="label-text text-lg">
+                    {" "}
+                    {riskQuiz ? riskQuiz[currentIndex]?.option3 : ""}
+                  </span>
+                </label>
+              </div>
+              <div className="flex">
+                <label className="label cursor-pointer text-left">
+                  <input
+                    type="radio"
+                    value="4"
+                    name={currentIndex + 1}
+                    className="radio radio-primary mr-[12px]"
+                    checked={selectedAnswers[currentIndex + 1] === 4}
+                    onChange={() => handleSelect(currentIndex + 1, 4)}
+                  />
+                  <span className="label-text text-lg">
+                    {" "}
+                    {riskQuiz ? riskQuiz[currentIndex]?.option4 : ""}
+                  </span>
+                </label>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-between mt-4">
+
+          <div className="flex justify-between mt-[32px]">
             <button
-              className="px-4 py-2 bg-gray-300 rounded-full hover:bg-gray-400"
+              className="px-4 py-2 bg-gray-300 rounded-full hover:bg-gray-400 flex gap-2"
               onClick={prevQuestion}
               disabled={currentIndex === 0}
             >
-              Prev
+              <ArrowLeft /> ก่อนหน้า
             </button>
 
-            {currentIndex < quizQuestions.length - 1 && (
+            {currentIndex < riskQuiz?.length - 1 && (
               <button
-                className="px-4 py-2 bg-primary text-white rounded-full"
+                className="px-4 py-2 bg-primary text-white rounded-full flex gap-2"
                 onClick={nextQuestion}
                 // disabled={currentIndex === quizQuestions.length - 1}
               >
-                Next
+                ถัดไป <ArrowRight />
               </button>
             )}
 
-            {currentIndex === quizQuestions.length - 1 && (
-              <Link to='/risk-assessment-result'>
-                <button className="px-4 py-2 bg-secondary text-white rounded-full">
+            {currentIndex === riskQuiz?.length - 1 && (
+              <Link to="/risk-assessment-result">
+                <button
+                  onClick={() => {
+                    saveScore(scoreall);
+                  }}
+                  className="px-4 py-2 bg-primary text-white rounded-full"
+                >
                   ส่งคำตอบ
                 </button>
               </Link>
             )}
           </div>
         </div>
+        <p className="text-xs mt-[48px]">
+          * แบบประเมินความเสี่ยงนี้นำมาจากเว็บไซต์ของสำนักงาน กลต. ณ
+          วันที่ 4 มีนาคม 2568{" "}
+          <a
+            href="https://www.smarttoinvest.com/Pages/Know%20Investment/Money%20Calculation%20Tool/InvestmentPortfolio.aspx"
+            className="link link-primary"
+          >
+            คลิกที่นี่
+          </a>
+        </p>
       </div>
     </>
   );

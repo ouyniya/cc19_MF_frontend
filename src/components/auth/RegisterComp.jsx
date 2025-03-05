@@ -46,7 +46,7 @@ function RegisterComp() {
         return createAlert("info", "Password and Confirm password unmatched!!");
       }
 
-      console.log(input)
+      // console.log(input)
       // ** send request to api (backend)
       await createNewAccount(input)
 
