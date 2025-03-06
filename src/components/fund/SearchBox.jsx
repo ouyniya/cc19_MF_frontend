@@ -16,11 +16,13 @@ function SearchBox() {
   const getGlobalInv = useFundStore((state) => state.getGlobalInv);
   const countFunds = useFundStore((state) => state.filteredFunds.count);
 
+  // select
   const company = useFundStore((state) => state.company?.result);
   const group = useFundStore((state) => state.group?.result);
   const riskLevel = useFundStore((state) => state.riskLevel?.result);
   const globalInv = useFundStore((state) => state.globalInv?.result);
 
+  // filter
   const [currentPage, setCurrentPage] = useState(1); // Starting at page 1
   const [classAbbrName, setClassAbbrName] = useState("");
   const [fundCompareGroup, setFundCompareGroup] = useState("");

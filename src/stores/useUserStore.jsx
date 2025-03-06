@@ -1,6 +1,8 @@
-import axios from "axios";
-import { create } from "zustand";
+import axios from "axios"; // ไลบรารีสำหรับการทำ HTTP requests (เช่น GET, POST, PUT) ไปยัง API
+import { create } from "zustand"; // ใช้สำหรับสร้าง store ที่เก็บสถานะต่างๆ ของแอปพลิเคชัน
 import { createJSONStorage, persist } from "zustand/middleware";
+// createJSONStorage ใช้สำหรับสร้าง storage ที่สามารถเก็บข้อมูลในรูปแบบ JSON
+// persist เป็น middleware ของ Zustand ที่ทำให้ข้อมูลใน store สามารถถูกเก็บใน localStorage (หรือ sessionStorage) และจะถูกโหลดกลับมาเมื่อผู้ใช้เปิดแอปใหม่
 
 const useUserStore = create(
   persist(
@@ -37,11 +39,20 @@ const useUserStore = create(
           }
         );
       },
+      deleteUser: async (token, body) => {
+        const res = await axios.delete(
+          "http://localhost:8000/user/profile",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        set({ token: "", user: null, currentUser: null })
+      },
       logout: () => set({ token: "", user: null, currentUser: null }),
     }),
     {
-      name: "state",
-      storage: createJSONStorage(() => localStorage),
+      name: "state", //ตั้งชื่อให้กับข้อมูลที่ถูกเก็บใน localStorage ซึ่งในที่นี้คือ "state"
+      storage: createJSONStorage(() => localStorage), // กำหนดว่าให้ใช้ localStorage เป็นที่เก็บข้อมูล
     }
   )
 );

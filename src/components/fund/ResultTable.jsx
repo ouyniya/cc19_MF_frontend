@@ -10,6 +10,7 @@ function ResultTable() {
     hdlSearchFilter();
   }, []);
 
+  // ข้อมูลเริ่มต้นเป็นแบบไม่ filter 
   const hdlSearchFilter = async () => {
     await getFilteredFunds("", "", "", "", "", "", 1, 10);
   };
@@ -174,7 +175,6 @@ function ResultTable() {
                     <a
                       href={fund.funds.urlFactsheet}
                       target="_blank"
-                      rel="noopener noreferrer"
                       className="btn btn-primary rounded-full btn-xs btn-outline"
                     >
                       ดาวน์โหลด

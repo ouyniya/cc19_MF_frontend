@@ -3,12 +3,22 @@ import React, { useState } from "react";
 import useUserStore from "../../stores/useUserStore";
 import { Link } from "react-router";
 import { createAlert } from "../../utils/createAlert";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router"; // Hook ของ React Router ที่ช่วยเปลี่ยนเส้นทาง
+
+// แสดงฟอร์มล็อกอิน ที่ให้ผู้ใช้กรอก email และ password
+// เมื่อพิมพ์ข้อมูล hdlChange จะอัปเดตค่าที่ useState
+// เมื่อกดปุ่ม Login → hdlLogin จะทำงาน
+// หยุดการรีโหลดหน้า (e.preventDefault())
+// เรียกใช้ login(input) จาก Zustand store
+// ถ้าสำเร็จ -> เปลี่ยนหน้าไป /admin หรือ /user
+// ถ้าผิดพลาด -> แสดงข้อความแจ้งเตือน
+// แสดงปุ่ม สมัครสมาชิก หากยังไม่มีบัญชี
 
 function LoginComp() {
   const login = useUserStore((state) => state.login);
   const navigate = useNavigate();
   const [input, setInput] = useState({
+    //// เก็บค่าของ email และ password ที่ผู้ใช้กรอก
     email: "",
     password: "",
   });
@@ -22,31 +32,27 @@ function LoginComp() {
   };
 
   const hdlLogin = async (e) => {
-    // หน่วงเวลาเพื่อให้แสดง icon loading ได้
     const redirectPage = (role) => {
       if (role === "ADMIN") {
-        navigate("/admin");
+        navigate("/admin"); // ถ้าเป็นแอดมิน ไปหน้า /admin
       } else {
-        navigate("/user");
+        navigate("/user"); // ถ้าเป็นผู้ใช้ทั่วไป ไปหน้า /user
       }
     };
 
     try {
-      e.preventDefault();
+      e.preventDefault(); // ป้องกันการรีโหลดหน้าเว็บ
 
+      // หน่วงเวลาเพื่อให้แสดง icon loading ได้
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      let res = await login(input);
-      // console.log("res", res.message);
+      let res = await login(input); // เรียกใช้ฟังก์ชัน login และรับค่าตอบกลับจากเซิร์ฟเวอร์
+      redirectPage(res.user.role); // นำผู้ใช้ไปยังหน้าที่เหมาะสมตาม role
 
-      // console.log(res.user.role);
-      redirectPage(res.user.role);
-
-      createAlert("success", "Welcome");
+      createAlert("success", "Welcome"); // แสดงข้อความแจ้งเตือน
     } catch (error) {
-      // console.log(error.response?.data.message)
       const errMsg = error.response?.data?.message || error.message;
-      createAlert("info", errMsg);
+      createAlert("info", errMsg); // แสดงข้อความแจ้งเตือนเมื่อเกิดข้อผิดพลาด
     }
   };
 

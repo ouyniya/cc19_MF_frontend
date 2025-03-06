@@ -60,7 +60,7 @@ function AssetBoxesEQ() {
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-90%"]);
 
   return (
     <>
@@ -78,9 +78,9 @@ function AssetBoxesEQ() {
           className="relative h-[300vh] w-full bg-gradient-to-b from-[var(--blue)] via-[var(--pink)] to-[var(--blue)]"
         >
           <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-            <div className="absolute top-[150px] left-1/2 -translate-x-1/2 text-white text-5xl font-bold text-center">
+            <div className="absolute top-[100px] left-1/2 -translate-x-1/2 text-white text-5xl font-bold text-center">
               กองทุนรวมหุ้น
-              <div className="px-[24px] py-[12px] mt-[32px] text-lg z-10 font-normal opacity-0 md:opacity-100">
+              {/* <div className="px-[24px] py-[12px] mt-[32px] text-lg z-10 font-normal opacity-0 md:opacity-100">
                 <p>
                   กองทุนรวมประเภทนี้เน้นลงทุนในหุ้นหลากหลายรูปแบบ เช่น หุ้นสามัญ
                   หุ้นบุริมสิทธิ ใบสำคัญแสดงสิทธิ
@@ -88,7 +88,7 @@ function AssetBoxesEQ() {
                   โดยกองทุนจะมีการลงทุนในสินทรัพย์เหล่านี้ไม่น้อยกว่าร้อยละ 80
                   ของมูลค่าทรัพย์สินสุทธิ (NAV) โดยเฉลี่ยในแต่ละรอบปีบัญชี
                 </p>
-              </div>
+              </div> */}
             </div>
             <motion.div style={{ x }} className="flex gap-4">
               {cards.map((card) => {
@@ -140,7 +140,7 @@ function AssetBoxesEQ() {
             </motion.div>
 
             {/* chat */}
-            <div className="chat chat-end absolute bottom-[300px] left-1/2 -translate-x-1/4">
+            {/* <div className="chat chat-end absolute bottom-[300px] left-1/2 -translate-x-1/4">
               <motion.div
                 initial={{ y: 5 }}
                 animate={{ y: -5 }}
@@ -155,10 +155,10 @@ function AssetBoxesEQ() {
                   ⚠️ เหมาะกับคนที่รับความเสี่ยงได้สูง
                 </div>
               </motion.div>
-            </div>
+            </div> */}
 
             {/* chat 2 */}
-            <div className="chat chat-end absolute bottom-[190px] left-1/2 -translate-x-1/5">
+            {/* <div className="chat chat-end absolute bottom-[190px] left-1/2 -translate-x-1/5">
               <motion.div
                 initial={{ y: 5 }}
                 animate={{ y: -5 }}
@@ -174,7 +174,7 @@ function AssetBoxesEQ() {
                 และควรมองการลงทุนเป็นเรื่องระยะยาว
                 </div>
               </motion.div>
-            </div>
+            </div> */}
 
 
             {/* cloud */}

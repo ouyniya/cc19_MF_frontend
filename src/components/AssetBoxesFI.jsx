@@ -1,9 +1,6 @@
 import { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
-import { ArrowRight, InfoIcon, PieChartIcon } from "lucide-react";
-import { Link } from "react-router";
-import { FfsIcon } from "../icons";
-import { div } from "framer-motion/client";
+import { InfoIcon } from "lucide-react";
 
 function AssetBoxesFI() {
   const cards = [
@@ -59,11 +56,12 @@ function AssetBoxesFI() {
 
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: targetRef,
+    target: targetRef, // เรากำลังติดตามการเลื่อนที่เกี่ยวข้องกับองค์ประกอบ (element) ที่อ้างอิงผ่าน targetRef
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
-
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-90%"]);
+  // ภาพจะถูกเลื่อนออกไปทางซ้ายมากถึง 75% ของความกว้างทั้งหมด (75% ของ 1000px = 750px) ทำให้ภาพเคลื่อนที่ไปทางซ้าย 750px จากตำแหน่งเริ่มต้น
+  // ค่าติดลบ (-75%) จึงใช้ในการควบคุมการเคลื่อนที่ไปทางซ้ายตามการเลื่อน (scroll).
   return (
     <>
       <div>
@@ -92,26 +90,26 @@ function AssetBoxesFI() {
               </div>
             </div>
 
-            <div className="flex justify-center items-start w-4/5 max-w-[1100px] m-auto">
-              <div className="glass rounded-3xl basis-1/2 flex flex-col gap-3 p-[54px] xl:pl-[100px] min-w-[400px]">
-                <p className="text-2xl font-bold text-white"> ตัวอย่างกองทุนตราสารหนี้</p>
+            <div className="flex justify-center items-start w-4/5 max-w-[1100px] m-auto h-[300px]">
+              <div className="glass rounded-3xl basis-1/2 flex flex-col gap-3 p-[32px] xl:pl-[100px] min-w-[400px] mt-[100px]">
+                <p className="text-xl font-bold text-white"> ตัวอย่างกองทุนตราสารหนี้</p>
                 {cards.map((el, index) => (
                   <div
                     key={index}
-                    className="text-white lg:text-lg text-sm font-semibold px-[12px]"
+                    className="text-white lg:text-md text-sm font-semibold px-[8px]"
                   >
                     ◽ {el.title}
                   </div>
                 ))}
               </div>
 
-              <div className="flex justify-center items-center basis-1/2">
+              <div className="flex justify-center items-center basis-1/2 h-[200px]">
                 <img src="src/assets/medal.png" alt="bonds" />
               </div>
             </div>
 
             {/* chat */}
-            <div className="chat chat-end absolute bottom-[300px] left-1/2 -translate-x-1/4">
+            {/* <div className="chat chat-end absolute bottom-[300px] left-1/2 -translate-x-1/4">
               <motion.div
                 initial={{ y: 5 }}
                 animate={{ y: -5 }}
@@ -126,10 +124,10 @@ function AssetBoxesFI() {
                   ⚠️ เหมาะกับผู้ลงทุนที่รับความเสี่ยงได้ไม่มาก
                 </div>
               </motion.div>
-            </div>
+            </div> */}
 
             {/* chat 2 */}
-            <div className="chat chat-end absolute bottom-[220px] left-1/2 -translate-x-1/5">
+            {/* <div className="chat chat-end absolute bottom-[220px] left-1/2 -translate-x-1/5">
               <motion.div
                 initial={{ y: 5 }}
                 animate={{ y: -5 }}
@@ -144,7 +142,7 @@ function AssetBoxesFI() {
                   ไม่คาดหวังผลตอบแทนที่สูงหรือหวือหวา
                 </div>
               </motion.div>
-            </div>
+            </div> */}
 
             {/* cloud */}
             <div className="absolute -z-10 opacity-15 bottom-[500px] -right-[700px]">

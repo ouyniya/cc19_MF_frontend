@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 import useUserStore from "../stores/useUserStore";
 import { Loader } from "lucide-react";
 import { Link } from "react-router";
 
 function ProtectRoutes(props) {
-  const { el, allows } = props;
+  const { el, allows } = props; 
+  // allows เป็น Array ของสิทธิ์ที่อนุญาต เช่น ["admin", "editor"]
 
   // get user and token from store
-  const user = useUserStore((state) => state.user);
   const token = useUserStore((state) => state.token);
   const getCurrentUser = useUserStore((state) => state.getCurrentUser);
-  // console.log(token)
   // set status login >> ok or not?
   const [ok, setOk] = useState(null);
 
@@ -23,12 +22,10 @@ function ProtectRoutes(props) {
     try {
       // get user data from backend
       const rs = await getCurrentUser(token);
-      // console.log(rs)
 
       const role = rs.user.role;
-      // console.log('***',role)
       // check role of user >> admin or user
-      setOk(allows.includes(role) ? true : false);
+      setOk(allows.includes(role));
     } catch (error) {
       setOk(false);
     }
@@ -52,19 +49,21 @@ function ProtectRoutes(props) {
           <p className="mt-4 text-gray-500">
             คุณไม่สามารถเข้าใช้งานหน้านี้ได้
             <br />
-            กรุณาลงชื่อเข้าใช้งาน <Link to='/login' className="link link-primary">ที่นี่</Link> หรือตรวจสอบสิทธิ์ของคุณผู้ดูแลระบบอีกครั้ง
+            กรุณาลงชื่อเข้าใช้งาน{" "}
+            <Link to="/login" className="link link-primary">
+              ที่นี่
+            </Link>{" "}
+            หรือตรวจสอบสิทธิ์ของคุณผู้ดูแลระบบอีกครั้ง
           </p>
 
-          <Link to='/'
-            className="btn btn-primary text-white btn-md mt-[24px]"
-          >
+          <Link to="/" className="btn btn-primary text-white btn-md mt-[24px]">
             กลับหน้าหลัก
           </Link>
         </div>
       </div>
     );
   }
-  return <>{el}</>;
+  return <>{el}</>; // el คือ Component ที่จะเรนเดอร์ถ้าผู้ใช้มีสิทธิ์
 }
 
 export default ProtectRoutes;

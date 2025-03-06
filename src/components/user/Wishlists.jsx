@@ -18,8 +18,17 @@ function Wishlists() {
   const getWishlists = useWishlistStore((state) => state.getWishlists);
 
   useEffect(() => {
-    getWishlists(token);
+    getMyWishLists(token);
   }, []);
+
+  const getMyWishLists = async(token) => {
+    try {
+      await getWishlists(token);
+    } catch (error) {
+      const errMsg = error.response?.data?.message || error.message;
+      createAlert("info", errMsg);
+    }
+  }
 
   // console.log(wishlists);
 

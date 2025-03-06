@@ -1,13 +1,11 @@
-import { ReactLenis } from "lenis/dist/lenis-react";
+import { ReactLenis } from "lenis/dist/lenis-react"; //ใช้ทำ smooth scrolling
 import {
   motion,
   useMotionTemplate,
   useScroll,
   useTransform,
 } from "framer-motion";
-import { useRef } from "react";
-import { MapPin } from "lucide-react";
-import Stat from "./Stat";
+import { useRef } from "react"; // ใช้เก็บ reference ของ DOM element
 import AssetBoxes from "./AssetBoxes";
 
 function Hero() {
@@ -22,6 +20,9 @@ export const SmoothScrollHero = () => {
         options={{
           // Learn more -> https://github.com/darkroomengineering/lenis?tab=readme-ov-file#instance-settings
           lerp: 0.05,
+          // lerp: 0.05 → ควบคุมความนุ่มนวลของการเลื่อน (low-pass filter)
+          // ค่า ต่ำ → การเลื่อนจะมีความหนืดและช้าลง
+          // ค่า สูง → การเลื่อนเร็วขึ้น
           //   infinite: true,
           //   syncTouch: true,
         }}
@@ -105,7 +106,7 @@ const CenterImage = () => {
             {/* topic */}
             <div className="flex flex-col items-center">
               <p className="leading-tight xl:text-6xl text-5xl font-medium text-[var(--blue)]">
-               ลงทุนอย่างมั่นใจ
+                ลงทุนอย่างมั่นใจ
               </p>
               <div className="flex">
                 <p className="xl:text-8xl mt-[12px] text-6xl font-bold text-[var(--blue)]">
@@ -120,7 +121,7 @@ const CenterImage = () => {
               </p>
               {/* background-size: 100% 6px; กำหนดให้ความสูงของ background เป็น 6px */}
               <div className="mt-[86px] mb-[8px]">
-                <p className="font-medium xl:text-4xl text-2xl text-center text-gray-500">
+                <p className="font-medium z-50 xl:text-4xl text-2xl text-center text-gray-500">
                   กองทุนไหนใช่? เราช่วยคุณคัดกรอง
                 </p>
               </div>
@@ -143,7 +144,7 @@ const CenterImage = () => {
           </div>
         </div>
         {/* cloud */}
-        <div className="absolute z-10 -left-[300px] opacity-0 md:opacity-80">
+        {/* <div className="absolute z-10 -left-[300px] opacity-0 md:opacity-80">
           <img src="src/assets/cloud.png" alt="cloud" className="w-[700px]" />
         </div>
         <div className="absolute z-10 -right-[500px] bottom-[100px]">
@@ -152,7 +153,7 @@ const CenterImage = () => {
             alt="cloud"
             className="w-[1500px] opacity-0 md:opacity-80"
           />
-        </div>
+        </div> */}
       </motion.div>
     </>
   );
@@ -164,8 +165,8 @@ const ParallaxImages = () => {
       <ParallaxImg
         src="src/assets/coin.gif"
         alt="And example of a space launch"
-        start={-200}
-        end={200}
+        start={-200} // จุดเริ่มต้นของตำแหน่ง Y
+        end={200} // จุดสิ้นสุดของตำแหน่ง Y
         className="w-1/3"
       />
       <ParallaxImg
@@ -193,18 +194,32 @@ const ParallaxImages = () => {
 };
 
 const ParallaxImg = ({ className, alt, src, start, end }) => {
-  const ref = useRef(null);
+  const ref = useRef(null); // ใช้เก็บ reference ของรูปภาพ เพื่อให้ useScroll ติดตามตำแหน่งการเลื่อนของมัน
 
   const { scrollYProgress } = useScroll({
+    // useScroll สำหรับติดตามค่าการเลื่อนของหน้าเว็บ
     target: ref,
     offset: [`${start}px end`, `end ${end * -1}px`],
   });
+  //   ใช้ offset เพื่อกำหนด ช่วงที่ animation จะเริ่มและจบ
+  // ["start end", "end start"] แปลว่า:
+  // เมื่อรูปภาพ เข้าใกล้จอ (ที่ตำแหน่ง start) → scrollYProgress = 0
+  // เมื่อรูปภาพ เลื่อนออกจากจอ (ถึง end) → scrollYProgress = 1
 
   const opacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);
+  // opacity: เมื่อ scrollYProgress เปลี่ยนจาก 0.75 → 1
+  // ค่า opacity จะเปลี่ยนจาก 1 (มองเห็นชัด) → 0 (หายไป)
+
   const scale = useTransform(scrollYProgress, [0.75, 1], [1, 0.85]);
+  // scrollYProgress = 0.75 → scale = 1 (ขนาดปกติ)
+  // scrollYProgress = 1 → scale = 0.85 (หดลง 85% ของขนาดเดิม)
 
   const y = useTransform(scrollYProgress, [0, 1], [start, end]);
   const transform = useMotionTemplate`translateY(${y}px) scale(${scale})`;
+  //   useMotionTemplate เป็น Hook ของ Framer Motion
+  // ใช้สำหรับ รวมค่าต่างๆ เป็น string สำหรับ CSS transform property
+  // แปลงค่า y และ scale ให้อยู่ในรูปของ CSS transform string
+  // "translateY(100px) scale(0.9)" ตัวอย่างผลลัพธ์เมื่อ y = 100 และ scale = 0.9
 
   return (
     <motion.img
@@ -214,51 +229,6 @@ const ParallaxImg = ({ className, alt, src, start, end }) => {
       ref={ref}
       style={{ transform, opacity }}
     />
-  );
-};
-
-const Schedule = () => {
-  return (
-    <section
-      id="launch-schedule"
-      className="mx-auto max-w-5xl px-4 py-48 text-white"
-    >
-      <motion.h1
-        initial={{ y: 48, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ ease: "easeInOut", duration: 0.75 }}
-        className="mb-20 text-4xl font-black uppercase text-zinc-50"
-      >
-        Launch Schedule
-      </motion.h1>
-      <ScheduleItem title="NG-21" date="Dec 9th" location="Florida" />
-      <ScheduleItem title="Starlink" date="Dec 20th" location="Texas" />
-      <ScheduleItem title="Starlink" date="Jan 13th" location="Florida" />
-      <ScheduleItem title="Turksat 6A" date="Feb 22nd" location="Florida" />
-      <ScheduleItem title="NROL-186" date="Mar 1st" location="California" />
-      <ScheduleItem title="GOES-U" date="Mar 8th" location="California" />
-      <ScheduleItem title="ASTRA 1P" date="Apr 8th" location="Texas" />
-    </section>
-  );
-};
-
-const ScheduleItem = ({ title, date, location }) => {
-  return (
-    <motion.div
-      initial={{ y: 48, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ ease: "easeInOut", duration: 0.75 }}
-      className="mb-9 flex items-center justify-between border-b border-zinc-800 px-3 pb-9"
-    >
-      <div>
-        <p className="mb-1.5 text-xl text-zinc-50">{title}</p>
-        <p className="text-sm uppercase text-zinc-500">{date}</p>
-      </div>
-      <div className="flex items-center gap-1.5 text-end text-sm uppercase text-zinc-500">
-        <p>{location}</p>
-        <MapPin />
-      </div>
-    </motion.div>
   );
 };
 

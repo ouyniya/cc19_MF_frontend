@@ -19,7 +19,6 @@ import useRiskAssessmentStore from "../../stores/useRiskAssessmentStore";
 import { createAlert } from "../../utils/createAlert";
 import AddPortList from "./AddPortList";
 import EditPortList from "./EditPortList";
-import { div } from "framer-motion/client";
 Chart.register(
   CategoryScale,
   LinearScale,
@@ -32,6 +31,7 @@ Chart.register(
 );
 
 function Investment() {
+  // ประกาศ State และดึงข้อมูลจาก Zustand Store
   const currentUser = useUserStore((state) => state.currentUser?.user);
   const getPortfolio = useInvestmentStore((state) => state.getPortfolio);
   const analyzePort = useInvestmentStore((state) => state.analyzePort);
@@ -54,17 +54,27 @@ function Investment() {
   const [convertedData, setConvertedData] = useState([]);
   const [weightedAssets, setWeightedAssets] = useState([]);
   const [aiResult, setAiResult] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // get all assets of this user
   useEffect(() => {
-    getPortfolio(token);
+    getMyPort(token);
   }, []);
 
   // load port
   useEffect(() => {
     convertData(portfolio);
-    getRiskResultByIdThisPage();
+    getRiskResultByIdThisPage(); // ดึงผลการวิเคราะห์ความเสี่ยง >> myRiskResultForPort
   }, [portfolio]);
+
+  const getMyPort = async (token) => {
+    try {
+      await getPortfolio(token);
+    } catch (error) {
+      const errMsg = error.response?.data?.message || error.message;
+      createAlert("info", errMsg);
+    }
+  };
 
   const getRiskResultByIdThisPage = async () => {
     try {
@@ -106,6 +116,7 @@ function Investment() {
   };
 
   //   convert groups
+  // แปลงข้อมูลพอร์ตเพื่อใช้ในการวิเคราะห์
   const convertData = (portfolio) => {
     let convertedData = [];
     const shortTermBond = ["Money Market Government"];
@@ -207,6 +218,8 @@ function Investment() {
       (investment) => investment.investmentType === asset.group
     );
 
+    // console.log(matchedInvestment)
+
     // ถ้าไม่พบการจับคู่ ให้เติมข้อมูลที่เป็นค่า default (เช่น null หรือ 0)
     return {
       id: matchedInvestment ? matchedInvestment.id : null, // ถ้าไม่มีคู่ให้ใช้ null
@@ -304,6 +317,8 @@ function Investment() {
   // console.log(recommendPortForAi)
 
   const hdlAIAnalyst = async () => {
+    setIsLoading(true); // เริ่มโหลด
+
     try {
       // console.log(myRiskResultForPort);
       if (myPortForAi.length === 0 || !myRiskResultForPort) {
@@ -325,6 +340,8 @@ function Investment() {
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
       createAlert("info", errMsg);
+    } finally {
+      setIsLoading(false); // โหลดเสร็จ
     }
   };
 
@@ -411,7 +428,14 @@ function Investment() {
                   AI
                 </div>
               </div>
-              <p className="text-xl font-bold">พอร์ตการลงทุนของคุณ</p>
+
+              {isLoading ? (
+                <p className="text-xl font-bold">Loading...</p>
+              ) : (
+                <>
+                  <p className="text-xl font-bold">พอร์ตการลงทุนของคุณ</p>
+                </>
+              )}
             </div>
           </div>
 
@@ -552,6 +576,13 @@ function Investment() {
             )}
           </div>
         </div>
+        <a
+          className="text-xs text-slate-300"
+          href="https://www.flaticon.com/free-animated-icons/loading"
+          title="loading animated icons"
+        >
+          Loading animated icons created by Freepik - Flaticon
+        </a>
       </div>
 
       <dialog id="add-port-form" className="modal">

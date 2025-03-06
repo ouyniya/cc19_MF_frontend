@@ -5,7 +5,6 @@ import { Eraser, Edit3Icon, MoreHorizontal, GlobeIcon } from "lucide-react";
 import useUserStore from "../../stores/useUserStore";
 import { createAlert } from "../../utils/createAlert";
 import Swal from "sweetalert2";
-import { create } from "zustand";
 
 function WishlistItem(props) {
   const { wishlist } = props;

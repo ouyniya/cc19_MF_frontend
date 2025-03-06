@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router";
 
-import { UserPen, ChartBar, UserCircle, HomeIcon } from "lucide-react";
+import { UserPen, UserCircle, HomeIcon } from "lucide-react";
 import { Link } from "react-router";
 import useUserStore from "../../stores/useUserStore";
 
@@ -63,7 +63,7 @@ function SidebarAdmin() {
                   )}
                 </Link>
               </li>
-              <li className="">
+              {/* <li className="">
                 <Link
                   to="/admin/analytics"
                   className="py-3 rounded-xl hover:bg-[var(--bluehover)] visited:bg-[var(--blue)] visited:text-white"
@@ -77,7 +77,7 @@ function SidebarAdmin() {
                     ""
                   )}
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 

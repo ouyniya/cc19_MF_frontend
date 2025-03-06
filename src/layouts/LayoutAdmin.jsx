@@ -9,6 +9,8 @@ function LayoutAdmin() {
     <div className="flex min-h-screen bg-base-200">
       <SidebarAdmin />
       <Outlet />
+      {/* ใช้ Outlet เพื่อให้สามารถแสดงผลคอมโพเนนต์อื่นๆ ที่เข้ามาภายใน Layout นี้ได้ */}
+     
     </div>
     </>
 );

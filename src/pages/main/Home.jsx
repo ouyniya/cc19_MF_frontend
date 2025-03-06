@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar";
-import Header from "../../components/Header";
-import AssetBoxes from "../../components/AssetBoxes";
-import FundHot from "../../components/FundHot";
 import FAQs from "../../components/FAQs";
 import HeadingSection from "../../components/HeadingSection";
 import "../../../src/index.css";
 import Stat from "../../components/Stat";
-import InfiniteScroll from "../../components/InfiniteScroll";
 import AssetBoxesEQ from "../../components/AssetBoxesEQ";
 import AssetBoxesFI from "../../components/AssetBoxesFI";
 import Hero from "../../components/Hero";
-import ExampleWeb from "../../components/ExampleWeb";
 import { Link } from "react-router";
 
 function Home() {
@@ -22,38 +17,38 @@ function Home() {
     "FAQs",
   ];
 
-  const funds = [
-    {
-      name: "K-BANKING",
-      nav: 20.15,
-      wishlistCount: 150,
-      ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
-    },
-    {
-      name: "T-Stock",
-      nav: 15.75,
-      wishlistCount: 135,
-      ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
-    },
-    {
-      name: "B-Fixed",
-      nav: 10.9,
-      wishlistCount: 120,
-      ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
-    },
-    {
-      name: "B-Fixed",
-      nav: 10.9,
-      wishlistCount: 110,
-      ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
-    },
-    {
-      name: "B-Fixed",
-      nav: 10.9,
-      wishlistCount: 100,
-      ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
-    },
-  ];
+  // const funds = [
+  //   {
+  //     name: "K-BANKING",
+  //     nav: 20.15,
+  //     wishlistCount: 150,
+  //     ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
+  //   },
+  //   {
+  //     name: "T-Stock",
+  //     nav: 15.75,
+  //     wishlistCount: 135,
+  //     ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
+  //   },
+  //   {
+  //     name: "B-Fixed",
+  //     nav: 10.9,
+  //     wishlistCount: 120,
+  //     ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
+  //   },
+  //   {
+  //     name: "B-Fixed",
+  //     nav: 10.9,
+  //     wishlistCount: 110,
+  //     ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
+  //   },
+  //   {
+  //     name: "B-Fixed",
+  //     nav: 10.9,
+  //     wishlistCount: 100,
+  //     ffs: "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0003_2563.pdf",
+  //   },
+  // ];
 
   const faqs = [
     {
@@ -125,8 +120,6 @@ function Home() {
         <HeadingSection text={topic[3]} />
         <FAQs faqs={faqs} />
       </div>
-
-      <InfiniteScroll />
 
       {/* <div className="max-w-7xl min-w-[300px] m-auto text-xs mt-[100px]">
         <p className="font-bold">credits section</p>

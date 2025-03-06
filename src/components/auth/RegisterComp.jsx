@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import { createAlert } from "../../utils/createAlert";
 import useUserStore from "../../stores/useUserStore";
+import { useNavigate } from "react-router"; // Hook ของ React Router ที่ช่วยเปลี่ยนเส้นทาง
 
 // not re render
 const initInput = {
@@ -13,8 +14,10 @@ const initInput = {
 };
 
 function RegisterComp() {
+  const navigate = useNavigate();
+
   const [input, setInput] = useState(initInput);
-  const createNewAccount = useUserStore(state => state.createNewAccount)
+  const createNewAccount = useUserStore((state) => state.createNewAccount);
 
   const hdlChange = (e) => {
     setInput((prev) => ({
@@ -48,10 +51,11 @@ function RegisterComp() {
 
       // console.log(input)
       // ** send request to api (backend)
-      await createNewAccount(input)
+      await createNewAccount(input);
 
       hdlClearInput();
       createAlert("success", "Register successfully");
+      navigate("/login");
     } catch (error) {
       // console.log(err)
       const errMsg = error.response?.data?.error || error.message;

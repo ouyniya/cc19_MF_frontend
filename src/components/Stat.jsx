@@ -40,7 +40,7 @@ function Stat() {
       controlsForeign.stop();
       controlsCompany.stop();
     };
-  }, [countMF, countNAV, countForeign, countCompany]);
+  }, []);
 
   return (
     <>
