@@ -29,6 +29,8 @@ function EditPersonal() {
       if (file) body.append("profile", file);
       // console.log(email, username, file);
 
+      console.log(body)
+
       // validate >> if no change
       if (email === user?.email && username === user?.username && !file) {
         createAlert("info", "ไม่มีการเปลี่ยนแปลง");
