@@ -29,7 +29,7 @@ Watch the demo:
 
 - Risk Profiling: Analysis of an investor’s risk tolerance level.
 - Fund Filtering: Screening of funds based on specified criteria.
-- Fund Recommendation: Recommending funds suitable for investors using AI or rule-based systems.
+- Fund Recommendation: Recommending type of funds suitable for investors using AI and  rule-based systems.
 - User: Investors who wish to select mutual funds.
 - Security: Use JWT Authentication for user verification.
 
