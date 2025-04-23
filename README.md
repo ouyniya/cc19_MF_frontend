@@ -22,7 +22,7 @@ This website is developed to assist investors in selecting funds that match thei
 Click the image below to watch a video walkthrough of the project:
 Watch the demo:
 
-[![Watch the demo](https://img.youtube.com/vi/OiUY6K5XySA/0.jpg)](https://youtu.be/OiUY6K5XySA)
+[![Watch the demo](https://img.youtube.com/vi/1XQmvn3KVcE/0.jpg)](https://youtu.be/1XQmvn3KVcE)
 
 
 ## 🌼 Features
