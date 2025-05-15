@@ -90,13 +90,13 @@ const CenterImage = () => {
         {/* cloud */}
         <div className="absolute z-10 left-[100px] top-[150px] opacity-0 md:opacity-80">
           <img
-            src="src/assets/cloud.png"
+            src="/cloud.png"
             alt="cloud"
             className="w-[250px] scale-x-[-1]"
           />
         </div>
         <div className="absolute z-10 right-[70px] top-[230px] opacity-0 md:opacity-80">
-          <img src="src/assets/cloud.png" alt="cloud" className="w-[350px]" />
+          <img src="/cloud.png" alt="cloud" className="w-[350px]" />
         </div>
 
         <div className="bg-gradient-to-b from-blue-200 to-white -mt-[5px]"></div>
@@ -145,11 +145,11 @@ const CenterImage = () => {
         </div>
         {/* cloud */}
         {/* <div className="absolute z-10 -left-[300px] opacity-0 md:opacity-80">
-          <img src="src/assets/cloud.png" alt="cloud" className="w-[700px]" />
+          <img src="/cloud.png" alt="cloud" className="w-[700px]" />
         </div>
         <div className="absolute z-10 -right-[500px] bottom-[100px]">
           <img
-            src="src/assets/cloud.png"
+            src="/cloud.png"
             alt="cloud"
             className="w-[1500px] opacity-0 md:opacity-80"
           />
@@ -163,28 +163,28 @@ const ParallaxImages = () => {
   return (
     <div className="mx-auto max-w-5xl px-4 pt-[200px]">
       <ParallaxImg
-        src="src/assets/coin.gif"
+        src="/coin.gif"
         alt="And example of a space launch"
         start={-200} // จุดเริ่มต้นของตำแหน่ง Y
         end={200} // จุดสิ้นสุดของตำแหน่ง Y
         className="w-1/3"
       />
       <ParallaxImg
-        src="src/assets/coin.gif"
+        src="/coin.gif"
         alt="An example of a space launch"
         start={200}
         end={-250}
         className="mx-auto w-2/3"
       />
       <ParallaxImg
-        src="src/assets/coin.gif"
+        src="/coin.gif"
         alt="Orbiting satellite"
         start={-200}
         end={200}
         className="ml-auto w-1/3"
       />
       <ParallaxImg
-        src="src/assets/coin.gif"
+        src="/coin.gif"
         start={0}
         end={-500}
         className="ml-24 w-5/12"

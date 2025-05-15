@@ -16,7 +16,7 @@ function ExampleWeb() {
           playsInline 
           className="w-full h-auto object-cover"
         >
-          <source src="src/assets/web.mp4" type="video/mp4" />
+          <source src="/web.mp4" type="video/mp4" />
         </video>
         </div>
       </div>

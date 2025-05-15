@@ -5,43 +5,43 @@ import { InfoIcon } from "lucide-react";
 function AssetBoxesFI() {
   const cards = [
     {
-      url: "src/assets/gov.webp",
+      url: "/gov.webp",
       title: "Short Term Government Bond",
       id: 1,
       desc: "ลงทุนในเงินฝากตราสารหนี้ของภาครัฐตามที่สำนักงานกำหนดให้ลงทุนได้โดยเฉลี่ยในรอบปีบัญชี >= 80% ของมูลค่าทรัพย์สินสุทธิของกองทุนรวม และเฉลี่ยจะมีอายุถัวเฉลี่ยแบบถ่วงน้ำหนัก ณ ขณะใดขณะหนึ่ง <= 1 ปี",
     },
     {
-      url: "src/assets/gov2.jpeg",
+      url: "/gov2.jpeg",
       title: "Mid Term Government Bond",
       id: 2,
       desc: "ลงทุนในเงินฝากตราสารหนี้ของภาครัฐตามที่สำนักงานกำหนดให้ลงทุนได้โดยเฉลี่ยในรอบปีบัญชี >= 80% ของมูลค่าทรัพย์สินสุทธิของกองทุนรวม และเฉลี่ยจะมีอายุถัวเฉลี่ยแบบถ่วงน้ำหนัก ณ ขณะใดขณะหนึ่ง > 1 - 3 ปี",
     },
     {
-      url: "src/assets/jp.avif",
+      url: "/jp.avif",
       title: "Short Term General Bond",
       id: 3,
       desc: "ลงทุนในเงินฝากตราสารหนี้ทั่วไปตามที่สำนักงาน กำหนดให้ลงทุนได้โดยเฉลี่ยในรอบปีบัญชี >= 80% ของมูลค่าทรัพย์สินสุทธิของกองทุนรวม และเฉลี่ยจะมีอายุถัวเฉลี่ยแบบถ่วงน้ำหนัก ณ ขณะใดขณะหนึ่ง <= 1 ปี",
     },
     {
-      url: "src/assets/eu.avif",
+      url: "/eu.avif",
       title: "Mid Term General Bond",
       id: 4,
       desc: "ลงทุนในเงินฝากตราสารหนี้ทั่วไปตามที่สำนักงานกำหนดให้ลงทุนได้โดยเฉลี่ยในรอบปีบัญชี >= 80% ของมูลค่าทรัพย์สินสุทธิของกองทุนรวม และเฉลี่ยจะมีอายุถัวเฉลี่ยแบบถ่วงน้ำหนัก ณ ขณะใดขณะหนึ่ง > 1 - 3 ปี",
     },
     {
-      url: "src/assets/id.jpeg",
+      url: "/id.jpeg",
       title: "Long Term General Bond",
       id: 5,
       desc: "ลงทุนในเงินฝากตราสารหนี้ทั่วไปตามที่สำนักงานกำหนดให้ลงทุนได้โดยเฉลี่ยในรอบปีบัญชี >= 80% ของมูลค่าทรัพย์สินสุทธิของกองทุนรวม และเฉลี่ยจะมีอายุถัวเฉลี่ยแบบถ่วงน้ำหนัก ณ ขณะใดขณะหนึ่ง >= 3 ปี",
     },
     {
-      url: "src/assets/indo.webp",
+      url: "/indo.webp",
       title: "Money Market - Government",
       id: 7,
       desc: "กองทุนรวมตลาดเงินที่ลงทุนในหรือมีไว้ซึ่งเงินฝาก ตราสารหนี้ระยะสั้นของภาครัฐตามที่สำนักงานกำหนดให้ลงทุนได้โดยเฉลี่ยในรอบปีบัญชี >= 80% ของมูลค่าทรัพย์สินสุทธิของกองทุนรวม",
     },
     {
-      url: "src/assets/th.jpeg",
+      url: "/th.jpeg",
       title: "Money Market - General",
       id: 8,
       desc: "กองทุนรวมตลาดเงินที่ลงทุนในหรือมีไว้ซึ่งเงินฝาก ตราสารหนี้ระยะสั้นของภาครัฐตามที่สำนักงานกำหนดให้ลงทุนได้โดยเฉลี่ยในรอบปีบัญชี < 80% ของมูลค่าทรัพย์สินสุทธิของกองทุนรวม",
@@ -107,7 +107,7 @@ function AssetBoxesFI() {
               </div>
 
               <div className="flex lg:justify-center lg:items-center lg:basis-1/2 lg:h-[200px] absolute lg:relative invisible lg:visible">
-                <img src="src/assets/medal.png" alt="bonds" />
+                <img src="/medal.png" alt="bonds" />
               </div>
             </div>
 
@@ -150,7 +150,7 @@ function AssetBoxesFI() {
             {/* cloud */}
             <div className="absolute -z-10 opacity-15 bottom-[500px] -right-[700px]">
               <img
-                src="src/assets/cloud.png"
+                src="/cloud.png"
                 alt="cloud"
                 className="w-[1200px]"
               />
@@ -158,7 +158,7 @@ function AssetBoxesFI() {
 
             <div className="absolute -z-10 opacity-20 bottom-[130px] -left-[250px]">
               <img
-                src="src/assets/cloud.png"
+                src="/cloud.png"
                 alt="cloud"
                 className="w-[700px] scale-x-[-1]"
               />

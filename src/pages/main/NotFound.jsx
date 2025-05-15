@@ -8,7 +8,7 @@ function NotFound() {
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-sm text-center">
             <h1 className="mb-4 text-7xl font-extrabold lg:text-9xl text-primary-600 dark:text-primary-500">
-              <img src="src/assets/error.gif" alt="error" width="350px" />
+              <img src="/error.gif" alt="error" width="350px" />
             </h1>
             <p className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl dark:text-white">
             ไม่พบหน้าที่คุณกำลังมองหา
