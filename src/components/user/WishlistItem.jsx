@@ -53,8 +53,8 @@ function WishlistItem(props) {
   };
 
   return (
-    <div key={wishlist.id}>
-      <div className="card bg-base-100 w-[300px] h-[350px] shadow-xl">
+    <div key={wishlist.id} className="mx-auto lg:mx-0">
+      <div className="card bg-base-100 w-[320px] lg:w-[300px] h-[350px] shadow-xl">
         <div className="dropdown absolute z-50 right-2 top-2">
           <div tabIndex="0" role="button" className="btn btn-ghost btn-xs m-1">
             <MoreHorizontal />

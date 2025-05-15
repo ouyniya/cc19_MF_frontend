@@ -81,31 +81,31 @@ function Home() {
   return (
     <>
       <Hero />
-      <div className="-mt-[20px] flex flex-col">
+      <div className="lg:-mt-[20px] flex flex-col">
         {/* <div className="bg-gradient-to-b from-blue-200 to-white -mt-[5px]">
           <div className="max-w-7xl min-w-[300px] m-auto pt-[48px] xl:pt-0">
             <Header />
           </div>
         </div> */}
 
-        <div className="max-w-7xl min-w-[300px] m-auto">
-          <SearchBar />
-          <div className="absolute right-1/2 translate-x-1/2 ">
-            <Link to="/fund">
-              <button className="btn btn-lg rounded-full btn-primary">
-                ไปหน้าค้นหากองทุน
-              </button>
-            </Link>
-          </div>
+        <div className="max-w-7xl min-w-[300px] m-auto w-full">
           {/* <div className="mt-[180px]">
             <ExampleWeb />
-          </div> */}
+            </div> */}
 
-          <div className="mt-[200px]">
+          <div className="mt-[400px] md:mt-0">
             <HeadingSection text={topic[2]} />
             <Stat />
           </div>
 
+            <SearchBar />
+            <div className="flex justify-center z-100">
+              <Link to="/fund">
+                <button className="btn btn-lg rounded-full btn-primary">
+                  ไปหน้าค้นหากองทุน
+                </button>
+              </Link>
+            </div>
           {/* <FundHot funds={funds} /> */}
         </div>
       </div>

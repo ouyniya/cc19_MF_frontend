@@ -78,9 +78,9 @@ function AssetBoxesFI() {
           className="relative h-[300vh] w-full bg-gradient-to-b from-[var(--blue)] via-[var(--green)] to-[var(--blue)]"
         >
           <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-            <div className="absolute top-[150px] left-1/2 -translate-x-1/2 text-white text-5xl font-bold text-center">
+            <div className="absolute top-[150px] left-1/2 -translate-x-1/2 text-white text-4xl lg:text-5xl font-bold text-center">
               กองทุนรวมตราสารหนี้
-              <div className="px-[24px] py-[12px] mt-[32px] text-lg z-10 font-normal opacity-0 md:opacity-100">
+              <div className="px-[24px] py-[12px] mt-[32px] text-sm lg:text-lg z-10 font-normal opacity-0 md:opacity-100">
                 <p>
                   กองทุนรวมประเภทนี้มีนโยบายลงทุนในตราสารหนี้เป็นหลัก
                   ทั้งภาครัฐและเอกชน เช่น ตั๋วเงินคลัง พันธบัตรรัฐบาล และหุ้นกู้
@@ -90,9 +90,12 @@ function AssetBoxesFI() {
               </div>
             </div>
 
-            <div className="flex justify-center items-start w-4/5 max-w-[1100px] m-auto h-[300px]">
-              <div className="glass rounded-3xl basis-1/2 flex flex-col gap-3 p-[32px] xl:pl-[100px] min-w-[400px] mt-[100px]">
-                <p className="text-xl font-bold text-white"> ตัวอย่างกองทุนตราสารหนี้</p>
+            <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start w-4/5 max-w-[1100px] m-auto h-[300px]">
+              <div className="glass rounded-3xl basis-1/2 flex flex-col gap-3 p-[32px] xl:pl-[100px] md:min-w-[400px] mt-[100px]">
+                <p className="text-xl font-bold text-white">
+                  {" "}
+                  ตัวอย่างกองทุนตราสารหนี้
+                </p>
                 {cards.map((el, index) => (
                   <div
                     key={index}
@@ -103,7 +106,7 @@ function AssetBoxesFI() {
                 ))}
               </div>
 
-              <div className="flex justify-center items-center basis-1/2 h-[200px]">
+              <div className="flex lg:justify-center lg:items-center lg:basis-1/2 lg:h-[200px] absolute lg:relative invisible lg:visible">
                 <img src="src/assets/medal.png" alt="bonds" />
               </div>
             </div>

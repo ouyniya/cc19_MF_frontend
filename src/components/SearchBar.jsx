@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 function SearchBar() {
   return (
     <>
-      <div className="grid place-content-center px-4 py-24">
+      <div className="flex justify-center px-4 py-12 lg:py-24 md:mt-0 w-full">
       {/* place-content-center: ใช้เพื่อจัดตำแหน่งเนื้อหาให้อยู่ตรงกลางทั้งในแนวตั้งและแนวนอน */}
-        <h1 className="max-w-2xl text-center text-4xl leading-snug">
+        <h1 className="max-w-2xl text-center text-xl md:text-4xl leading-snug">
         {/* leading-snug: กำหนดระยะห่างระหว่างบรรทัดให้กระชับ (ประมาณ 1.375rem) */}
           กำลังมองหากองทุนอยู่ใช่ไหม... <br />
-          <p className="text-5xl mt-[16px]">
+          <p className="text-2xl md:text-5xl mt-[12px]">
             ค้นหา{" "}
             <span className="relative font-bold text-[var(--blue)]">
               กองทุนที่ใช่

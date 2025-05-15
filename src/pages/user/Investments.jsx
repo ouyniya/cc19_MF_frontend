@@ -3,7 +3,7 @@ import Investment from '../../components/user/Investment'
 
 function Investments() {
   return (
-    <div className="ml-[280px]">
+    <div>
       <Investment />
     </div>
   )

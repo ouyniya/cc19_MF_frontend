@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Pencil, Mail, UserPen, User2 } from "lucide-react";
 import useUserStore from "../../stores/useUserStore";
@@ -29,7 +29,7 @@ function EditPersonal() {
       if (file) body.append("profile", file);
       // console.log(email, username, file);
 
-      console.log(body)
+      console.log(body);
 
       // validate >> if no change
       if (email === user?.email && username === user?.username && !file) {
@@ -86,7 +86,7 @@ function EditPersonal() {
   return (
     <>
       <div>
-        <div className="lg:flex w-full pr-[0px] py-[0px] min-w-[450px] gap-5">
+        <div className="lg:flex w-full gap-5">
           <input
             type="file"
             accept="image/*"
@@ -122,7 +122,7 @@ function EditPersonal() {
           <form className="w-full m-auto" onSubmit={hdlUpdateProfile}>
             <div className="flex flex-col justify-center w-full m-auto mt-[48px]">
               <div className="flex flex-col gap-5">
-                <div className="lg:flex justify-around m-auto px-[20px] gap-5 w-full">
+                <div className="lg:flex justify-around m-auto gap-5 w-full">
                   <div className="input input-bordered flex items-center basis-1/2 mb-[18px] lg:mb-[0px]">
                     <Mail />
                     <input
@@ -149,7 +149,7 @@ function EditPersonal() {
               </div>
 
               {/* save button */}
-              <div className="flex justify-end mx-[24px] mt-[24px] gap-2">
+              <div className="flex justify-end mt-[24px]">
                 <button className="btn text-white bg-[var(--blue)] hover:btn-secondary">
                   บันทึก
                 </button>
@@ -157,12 +157,14 @@ function EditPersonal() {
             </div>
           </form>
         </div>
-        <button
-          onClick={hdlDeleteProfile}
-          className="link link-secondary"
-        >
-          ลบบัญชี
-        </button>
+        <div className="relative">
+          <button
+            onClick={hdlDeleteProfile}
+            className="absolute -top-[30px] lg:left-[210px] link link-secondary"
+          >
+            ลบบัญชี
+          </button>
+        </div>
       </div>
     </>
   );

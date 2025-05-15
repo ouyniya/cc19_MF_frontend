@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
 import { createAlert } from "../../utils/createAlert";
 import useUserStore from "../../stores/useUserStore";
 import RiskQuizBtn from "../riskAssessment/RiskQuizBtn";
 import { MailIcon } from "lucide-react";
+import { useEffect } from "react";
 
 function ShowProfile() {
   const token = useUserStore((state) => state.token);
@@ -27,7 +27,7 @@ function ShowProfile() {
 
   return (
     <>
-      <div className="p-6 w-full flex flex-col items-center gap-[48px]">
+      <div className="w-full flex flex-col items-center gap-[48px]">
         {/* User Details */}
         <div className="flex-1 w-full">
           <h2 className="text-2xl font-semibold">

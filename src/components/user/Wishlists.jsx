@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Logout from "../auth/Logout";
 import WishlistItem from "./WishlistItem";
 import EditWishlist from "./EditWishlist";
@@ -7,6 +7,7 @@ import useUserStore from "../../stores/useUserStore";
 
 import { Plus } from "lucide-react";
 import AddWishlist from "./AddWishlist";
+import { createAlert } from "../../utils/createAlert";
 
 function Wishlists() {
   const token = useUserStore((state) => state.token);
@@ -34,10 +35,10 @@ function Wishlists() {
 
   return (
     <>
-      <div className="flex flex-col p-6 transition-all duration-300 w-[calc(100vw-350px)]">
-        <div className="container h-screen">
+      <div className="flex flex-col transition-all duration-300 w-screen max-w-5xl">
+        <div className="container min-h-screen p-6">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold">My Wish Funds</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">My Wish Funds</h1>
             <Logout />
           </div>
           <button className="btn text-[var(--blue)] border-[var(--blue)] hover:btn-accent hover:text-white btn-sm rounded-full" onClick={(e) =>
@@ -63,7 +64,7 @@ function Wishlists() {
         <div className="modal-box">
           <button // close model box
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-            onClick={(e) =>
+            onClick={() =>
               document.getElementById("edit-wishlist-form").close() 
             }
           >
@@ -78,7 +79,7 @@ function Wishlists() {
         <div className="modal-box">
           <button // close model box
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-            onClick={(e) =>
+            onClick={() =>
               document.getElementById("add-wishlist-form").close()
             }
           >

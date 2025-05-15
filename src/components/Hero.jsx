@@ -81,7 +81,7 @@ const CenterImage = () => {
   return (
     <>
       <motion.div
-        className="sticky top-[250px] h-screen w-full"
+        className="sticky top-[100px] md:top-[130px] lg:top-[180px] h-screen w-full"
         style={{
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -105,28 +105,28 @@ const CenterImage = () => {
           <div className="">
             {/* topic */}
             <div className="flex flex-col items-center">
-              <p className="leading-tight xl:text-6xl text-5xl font-medium text-[var(--blue)]">
+              <p className="leading-tight text-2xl xl:text-6xl md:text-5xl font-medium text-[var(--blue)]">
                 ลงทุนอย่างมั่นใจ
               </p>
               <div className="flex">
-                <p className="xl:text-8xl mt-[12px] text-6xl font-bold text-[var(--blue)]">
+                <p className="xl:text-8xl mt-[12px] text-4xl md:text-6xl font-bold text-[var(--blue)]">
                   เลือกกองทุนที่
                   <a className="text-center font-bold bg-gradient-to-tr from-[var(--blue)] to-[var(--pink)] bg-clip-text text-transparent">
                     ใช่
                   </a>
                 </p>
               </div>
-              <p className="xl:text-7xl mt-[32px] text-6xl font-bold text-[var(--blue)] bg-gradient-to-r from-[var(--blue)] to-[var(--pink)] bg-[length:100%_6px] bg-no-repeat bg-bottom">
+              <p className="xl:text-7xl mt-2 md:mt-[32px] text-3xl md:text-6xl font-bold text-[var(--blue)] bg-gradient-to-r from-[var(--blue)] to-[var(--pink)] bg-[length:100%_6px] bg-no-repeat bg-bottom z-10">
                 ในไม่กี่คลิก!
               </p>
               {/* background-size: 100% 6px; กำหนดให้ความสูงของ background เป็น 6px */}
-              <div className="mt-[86px] mb-[8px]">
+              <div className="mt-4 md:mt-[60px] z-10">
                 <p className="font-medium z-50 xl:text-4xl text-2xl text-center text-gray-500">
                   กองทุนไหนใช่? เราช่วยคุณคัดกรอง
                 </p>
               </div>
 
-              <div className="sm:flex px-[24px] sm:gap-5 flex-wrap xl:flex-nowrap md:mt-[80px] z-50">
+              <div className="sm:flex px-[24px] sm:gap-5 flex-wrap xl:flex-nowrap md:mt-[24px] z-50">
                 {assetBoxes.map((item, index) => (
                   <AssetBoxes
                     key={index}

@@ -1,4 +1,3 @@
-import React from "react";
 import EditPersonal from "./EditPersonal";
 import Logout from "../auth/Logout";
 import ShowProfile from "./ShowProfile";
@@ -6,8 +5,8 @@ import ShowProfile from "./ShowProfile";
 function EditProfile() {
   return (
     <>
-      <div className="flex flex-col p-6 transition-all duration-300 w-[calc(100vw-350px)]">
-        <div className="container h-screen">
+      <div className="flex flex-col transition-all duration-300 w-screen max-w-5xl">
+        <div className="container h-screen p-6">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-3xl font-bold">Profile</h1>
             <Logout />

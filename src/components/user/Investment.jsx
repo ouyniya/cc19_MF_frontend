@@ -378,15 +378,15 @@ function Investment() {
 
   return (
     <>
-      <div className="flex flex-col p-6 transition-all duration-300 w-[calc(100vw-350px)]">
-        <div className="container h-screen">
-          <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col px-4 transition-all duration-300 w-screen max-w-5xl">
+        <div className="container min-h-screen p-6">
+          <div className="flex justify-between items-center">
             <h1 className="text-3xl font-bold">การลงทุนของคุณ</h1>
             <Logout />
           </div>
 
           {/* ส่วนแรก */}
-          <div className="xl:flex block gap-5 mt-[48px]">
+          <div className="flex lg:flex-row flex-col gap-3 mt-[48px]">
             <div className="flex flex-1 gap-7 bg-base-100 rounded-3xl px-[32px] py-[20px]">
               <div className="avatar">
                 <div
@@ -431,9 +431,9 @@ function Investment() {
             </div>
             <div
               onClick={hdlAIAnalyst}
-              className="w-[270px] bg-gradient-to-br from-blue-700 to-[var(--pink)] text-white rounded-3xl px-[32px] py-[20px] hover:cursor-pointer"
+              className="min-w-[270px] bg-gradient-to-br from-blue-700 to-[var(--pink)] text-white rounded-3xl px-[32px] py-[20px] hover:cursor-pointer"
             >
-              <div className="flex gap-2">
+              <div className="flex gap-2 justify-center items-center">
                 <Sparkle size="18px" className="opacity-70" />
                 <p>วิเคราะห์</p>
                 <div className="badge badge-dash badge-white badge-outline">
@@ -445,14 +445,14 @@ function Investment() {
                 <p className="text-xl font-bold">Loading...</p>
               ) : (
                 <>
-                  <p className="text-xl font-bold">พอร์ตการลงทุนของคุณ</p>
+                  <p className="text-xl font-bold text-center">พอร์ตการลงทุนของคุณ</p>
                 </>
               )}
             </div>
           </div>
 
           {/* ส่วน port */}
-          <div className="xl:flex block gap-5 mt-[32px]">
+          <div className="flex lg:flex-row flex-col gap-5 mt-[32px]">
             <div className="flex flex-1 gap-7 bg-base-100 rounded-3xl px-[32px] py-[20px]">
               <div className="w-full m-auto">
                 <p className="font-bold">พอร์ตการลงทุนของคุณ</p>
@@ -461,7 +461,7 @@ function Investment() {
                     <ChartPort options={options} data={Mydata} />
                   ) : (
                     <>
-                      <div className="absolute flex gap-2">
+                      <div className="absolute flex flex-col md:flex-row gap-2">
                         <p className="text-secondary">
                           คุณยังไม่มีพอร์ตการลงทุน
                         </p>
@@ -534,17 +534,17 @@ function Investment() {
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                      <th scope="col" className="px-6 py-3"></th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="px-2 md:px-6 py-3"></th>
+                      <th scope="col" className="px-2 md:px-6 py-3">
                         ชื่อกองทุน
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="px-2 md:px-6 py-3">
                         ประเภทกองทุน
                       </th>
-                      <th scope="col" className="px-6 py-3 text-right">
+                      <th scope="col" className="px-2 md:px-6 py-3 text-right">
                         จำนวนเงินลงทุน
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="px-2 md:px-6 py-3 text-center">
                         <span>แก้ไข / ลบ</span>
                       </th>
                     </tr>
@@ -557,12 +557,12 @@ function Investment() {
                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
                       >
                         <th className="text-center">{index + 1}</th>
-                        <td className="px-6 py-4">{el.fundName}</td>
-                        <td className="px-6 py-4">{el.group}</td>
-                        <td className="px-6 py-4 text-right ">
+                        <td className="px-2 md:px-6 py-4">{el.fundName}</td>
+                        <td className="px-2 md:px-6 py-4">{el.group}</td>
+                        <td className="px-2 md:px-6 py-4 text-right">
                           {el.amount.toLocaleString()}
                         </td>
-                        <td className="flex gap-5 px-6 py-4">
+                        <td className="px-2 md:px-6 py-4 text-center">
                           <button
                             onClick={(e) => {
                               setCurrentPortfolio(el);
@@ -574,7 +574,7 @@ function Investment() {
                           >
                             <Edit2
                               size="18px"
-                              className="stroke-blue-500 hover:stroke-blue-700 hover:cursor-pointer"
+                              className="stroke-blue-500 hover:stroke-blue-700 hover:cursor-pointer mr-1 md:mr-2"
                             />
                           </button>
 
@@ -593,13 +593,6 @@ function Investment() {
             )}
           </div>
         </div>
-        <a
-          className="text-xs text-slate-300"
-          href="https://www.flaticon.com/free-animated-icons/loading"
-          title="loading animated icons"
-        >
-          Loading animated icons created by Freepik - Flaticon
-        </a>
       </div>
 
       <dialog id="add-port-form" className="modal">
