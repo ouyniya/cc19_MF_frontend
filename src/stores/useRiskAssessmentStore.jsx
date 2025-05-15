@@ -8,7 +8,7 @@ const useRiskAssessmentStore = create((set) => ({
   score: null,
   getRiskQuiz: async () => {
     const res = await axios.get(
-      `http://localhost:8000/risk-assessment/question`
+      `${import.meta.env.VITE_API_URL}/risk-assessment/question`
     );
     // console.log('getRiskQuiz...',res);
     set({ riskQuiz: res.data });
@@ -16,21 +16,21 @@ const useRiskAssessmentStore = create((set) => ({
   saveScore: (score) => set({ score: score }),
   getRiskResult: async (userScore) => {
     const res = await axios.get(
-      `http://localhost:8000/risk-assessment/result?score=${userScore}`
+      `${import.meta.env.VITE_API_URL}/risk-assessment/result?score=${userScore}`
     );
     // console.log('getRiskQuiz...',res);
     set({ riskResult: res.data });
   },
   getRiskResultById: async (id) => {
     const res = await axios.get(
-      `http://localhost:8000/risk-assessment/result-by-id?id=${id}`
+      `${import.meta.env.VITE_API_URL}/risk-assessment/result-by-id?id=${id}`
     );
     // console.log('getRiskQuiz...',res);
     set({ myRiskResultForPort: res.data });
   },
   saveRiskResult: async (token, body) => {
     const res = await axios.post(
-      `http://localhost:8000/user/risk-assessment`,
+      `${import.meta.env.VITE_API_URL}/user/risk-assessment`,
       body,
       {
         headers: { Authorization: `Bearer ${token}` },

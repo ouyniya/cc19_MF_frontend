@@ -5,22 +5,20 @@ const useInvestmentStore = create((set) => ({
   portfolio: [],
   currentPortfolio: null,
   getPortfolio: async (token) => {
-    const res = await axios.get(`http://localhost:8000/ai/portfolio`, {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/ai/portfolio`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    // console.log(res.data.portfolio)
     set({ portfolio: res.data.portfolio});
   },
   setCurrentPortfolio: (portfolio) => set({ currentPortfolio: portfolio }),
   addPortList: async (token, body) => {
-    const res = await axios.post(`http://localhost:8000/ai/portfolio`, body, {
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai/portfolio`, body, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    // console.log(res);
   },
   updatePortList: async (id, token, body) => {
     const res = await axios.put(
-      `http://localhost:8000/ai/portfolio/${id}`,
+      `${import.meta.env.VITE_API_URL}/ai/portfolio/${id}`,
       body,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -28,9 +26,8 @@ const useInvestmentStore = create((set) => ({
     );
   },
   deletePortList: async (id, token) => {
-    // console.log(typeof id)
     const res = await axios.delete(
-      `http://localhost:8000/ai/portfolio/${id}`,
+      `${import.meta.env.VITE_API_URL}/ai/portfolio/${id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -38,7 +35,7 @@ const useInvestmentStore = create((set) => ({
   },
   analyzePort: async (token, body) => {
     const res = await axios.post(
-      `http://localhost:8000/ai`, body,
+      `${import.meta.env.VITE_API_URL}/ai`, body,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

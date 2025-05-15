@@ -12,13 +12,13 @@ const useUserStore = create(
       currentUser: null,
       login: async (input) => {
         // console.log(input)
-        const rs = await axios.post("http://localhost:8000/api/login", input);
+        const rs = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, input);
         // console.log(rs.data)
         set({ token: rs.data.token, user: rs.data.user });
         return rs.data;
       },
       getCurrentUser: async (token) => {
-        const res = await axios.get("http://localhost:8000/user/profile", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/user/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         set({ currentUser: res.data });
@@ -26,13 +26,13 @@ const useUserStore = create(
       },
       createNewAccount: async (input) => {
         const res = await axios.post(
-          "http://localhost:8000/api/register",
+          `${import.meta.env.VITE_API_URL}/api/register`,
           input
         );
       },
       updateUser: async (token, body) => {
         const res = await axios.put(
-          "http://localhost:8000/user/profile",
+          `${import.meta.env.VITE_API_URL}/user/profile`,
           body,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -41,7 +41,7 @@ const useUserStore = create(
       },
       deleteUser: async (token, body) => {
         const res = await axios.delete(
-          "http://localhost:8000/user/profile",
+          `${import.meta.env.VITE_API_URL}/user/profile`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

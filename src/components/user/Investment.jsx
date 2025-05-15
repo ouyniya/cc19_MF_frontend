@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Logout from "../auth/Logout";
-import { Asterisk, Edit2, Plus, Sparkle, Trash2 } from "lucide-react";
+import {
+  AlertCircle,
+  Asterisk,
+  Edit2,
+  Plus,
+  Sparkle,
+  Trash2,
+} from "lucide-react";
 import useUserStore from "../../stores/useUserStore";
 import ChartPort from "./ChartPort";
 import {
@@ -19,6 +26,7 @@ import useRiskAssessmentStore from "../../stores/useRiskAssessmentStore";
 import { createAlert } from "../../utils/createAlert";
 import AddPortList from "./AddPortList";
 import EditPortList from "./EditPortList";
+import RiskQuizBtn from "../riskAssessment/RiskQuizBtn";
 Chart.register(
   CategoryScale,
   LinearScale,
@@ -321,8 +329,12 @@ function Investment() {
 
     try {
       // console.log(myRiskResultForPort);
-      if (myPortForAi.length === 0 || !myRiskResultForPort) {
+      if (myPortForAi.length === 0) {
         return createAlert("info", "ไม่มีข้อมูลพอร์ตการลงทุน");
+      }
+
+      if (!myRiskResultForPort) {
+        return createAlert("info", "ไม่มีข้อมูลผลการประเมินความเสี่ยง");
       }
 
       const body = {
@@ -482,7 +494,12 @@ function Investment() {
                     <ChartPort options={options} data={Portdata} />
                   ) : (
                     <>
-                      <p className="absolute">คุณยังไม่มีคะแนนความเสี่ยง</p>
+                      <div className="absolute flex flex-col justify-center items-center gap-2">
+                        <p>คุณยังไม่มีคะแนนความเสี่ยง</p>
+                        <div className="z-10">
+                          <RiskQuizBtn />
+                        </div>
+                      </div>
                       <div className="opacity-0">
                         <ChartPort options={options} data={Portdata} />
                       </div>
@@ -621,17 +638,28 @@ function Investment() {
           </button>
           <p className="text-xl font-bold py-[24px]">ผลการวิเคราะห์พอร์ต</p>
           {/* {aiResult} */}
-          {aiResult
-            ? aiResult
-                ?.split("<p>")
-                ?.join(" ")
-                ?.split("</p>")
-                ?.map((el, index) => (
-                  <div key={index}>
-                    <p className="mb-[12px]">{el}</p>
-                  </div>
-                ))
-            : "ไม่มีผลการวิเคราะห์"}
+          {aiResult ? (
+            aiResult
+              ?.split("<p>")
+              ?.join(" ")
+              ?.split("</p>")
+              ?.map((el, index) => (
+                <div key={index}>
+                  <p className="mb-[12px]">{el}</p>
+                </div>
+              ))
+          ) : (
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2">
+
+              <AlertCircle />
+              <p>
+                ยังไม่เปิดให้ใช้บริการวิเคราะห์ข้อมูลพอร์ตการลงทุนสำหรับบุคคลทั่วไป
+              </p>
+              </div>
+              <p>หากท่านต้องการทดลองใช้งาน กรุณาติดต่อที่ support@nysdev.com</p>
+            </div>
+          )}
         </div>
       </dialog>
     </>
