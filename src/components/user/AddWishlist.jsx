@@ -20,9 +20,11 @@ function AddWishlist() {
   const fundNames = useFundStore((state) => state.fundNames);
   const getFundNames = useFundStore((state) => state.getFundNames);
 
+  const [loading, setLoading] = useState(null)
+
   // fetch ด้วยตัวที่หน่วงเวลาแล้ว
   useEffect(() => {
-    getFundNames(classAbbrNameWait);
+    getFundNames(classAbbrNameWait.toUpperCase());
   }, [classAbbrNameWait]);
 
   // หน่วงเวลารอ user พิมพ์ก่อนค่อย fetch
@@ -48,6 +50,8 @@ function AddWishlist() {
   };
 
   const hdlAddWishlist = async () => {
+    setLoading(true)
+
     try {
       const body = {
         interestRating: rating,
@@ -63,16 +67,21 @@ function AddWishlist() {
       setRating(3);
       setNote("");
 
+      setLoading(false)
+
       document.getElementById("add-wishlist-form").close();
       createAlert("success", "เพิ่ม Wishlist เรียบร้อยแล้ว");
+
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
       //   console.log(errMsg);
       setOtherError(errMsg);
+      setLoading(false)
     }
   };
 
-  //   console.log("****", fundNames);
+    // console.log("****", classAbbrNameWait);
+    // console.log("****", fundNames);
   //
   return (
     <>
@@ -161,7 +170,7 @@ function AddWishlist() {
                 onClick={hdlAddWishlist}
                 className="btn btn-primary rounded-full hover:btn-secondary"
               >
-                บันทึก
+                {loading === true ? 'กำลังบันทึก...' : 'บันทึก'}
               </button>
             </div>
           </div>

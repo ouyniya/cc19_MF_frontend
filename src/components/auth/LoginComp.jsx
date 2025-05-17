@@ -16,6 +16,8 @@ import { useNavigate } from "react-router"; // Hook ของ React Router ท�
 
 function LoginComp() {
   const login = useUserStore((state) => state.login);
+  const [loading, setLoading] = useState(null);
+
   const navigate = useNavigate();
   const [input, setInput] = useState({
     //// เก็บค่าของ email และ password ที่ผู้ใช้กรอก
@@ -32,6 +34,8 @@ function LoginComp() {
   };
 
   const hdlLogin = async (e) => {
+    setLoading(true);
+
     const redirectPage = (role) => {
       if (role === "ADMIN") {
         navigate("/admin"); // ถ้าเป็นแอดมิน ไปหน้า /admin
@@ -43,16 +47,16 @@ function LoginComp() {
     try {
       e.preventDefault(); // ป้องกันการรีโหลดหน้าเว็บ
 
-      // หน่วงเวลาเพื่อให้แสดง icon loading ได้
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
       let res = await login(input); // เรียกใช้ฟังก์ชัน login และรับค่าตอบกลับจากเซิร์ฟเวอร์
       redirectPage(res.user.role); // นำผู้ใช้ไปยังหน้าที่เหมาะสมตาม role
 
       createAlert("success", "Welcome"); // แสดงข้อความแจ้งเตือน
+
+      setLoading(false);
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
       createAlert("info", errMsg); // แสดงข้อความแจ้งเตือนเมื่อเกิดข้อผิดพลาด
+      setLoading(false);
     }
   };
 
@@ -93,7 +97,7 @@ function LoginComp() {
               </div>
             </div>
             <button className="btn btn-active btn-primary w-full my-5">
-              Login
+              {loading === true ? "Loading..." : "Login"}
             </button>
             <span className="text-center">
               ยังไม่มีบัญชีใช่ไหม

@@ -33,7 +33,11 @@ function ProtectRoutes(props) {
 
   // loading part
   if (ok === null) {
-    return <Loader />;
+    return <>
+    <div className="w-screen h-screen flex justify-center items-center">
+    <Loader className="animate-spin" />
+    </div>
+    </>
   }
 
   if (!ok) {
