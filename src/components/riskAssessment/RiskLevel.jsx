@@ -57,9 +57,11 @@ function RiskLevel() {
 
   let useRiskLevel = null;
   useRiskLevel = userRiskLevelName(riskResult?.id);
+  
 
   return (
     <>
+
       <div className="text-center mt-[100px] max-w-4xl m-auto ">
         <h2 className="text-2xl font-semibold">คุณคือผู้ลงทุนแบบ</h2>
         <p

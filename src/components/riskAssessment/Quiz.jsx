@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import useRiskAssessmentStore from "../../stores/useRiskAssessmentStore";
 import { createAlert } from "../../utils/createAlert";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader } from "lucide-react";
 
 // สำหรับแบบทดสอบประเมินความเสี่ยง ซึ่งดึงข้อมูลคำถามจาก Zustand Store และให้ผู้ใช้เลือกคำตอบ โดยคำนวณคะแนนและบันทึกผลลัพธ์ไปยัง Store เมื่อส่งคำตอบ
 
@@ -13,6 +13,8 @@ function Quiz() {
   );
   const saveScore = useRiskAssessmentStore((state) => state.saveScore);
   const score = useRiskAssessmentStore((state) => state.score);
+
+  const [loading, setLoading] = useState(null);
 
   const [currentIndex, setCurrentIndex] = useState(0); //เก็บ index ของคำถามปัจจุบัน
   const [selectedAnswers, setSelectedAnswers] = useState({
@@ -33,11 +35,15 @@ function Quiz() {
   }, []);
 
   const getRiskQuizForPage = async () => {
+    setLoading(true);
+
     try {
       await getRiskQuiz();
+      setLoading(false);
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
       createAlert("info", errMsg);
+      setLoading(false);
     }
   };
 
@@ -97,111 +103,121 @@ function Quiz() {
 
         {/* แสดงคำถามปัจจุบัน */}
         <div className="bg-white px-[54px] py-[48px] rounded-xl shadow-lg w-full max-w-xl min-w-[350px]">
-          <div className="flex flex-col">
-            <h2 className="text-2xl font-semibold mb-4">
-              {riskQuiz ? riskQuiz[currentIndex]?.question : ""}
-            </h2>
-            <div className="w-full">
-              <div className="flex">
-                <label className="label cursor-pointer text-left">
-                  <input
-                    type="radio"
-                    value="1"
-                    name={currentIndex + 1} // ทำให้ปุ่ม <input> ที่อยู่ในคำถามเดียวกันเป็นกลุ่มเดียวกัน และสามารถเลือกได้เพียงตัวเลือกเดียว
-                    className="radio radio-primary mr-[12px]"
-                    checked={selectedAnswers[currentIndex + 1] === 1}
-                    onChange={() => handleSelect(currentIndex + 1, 1)} // เมื่อคลิกที่ปุ่ม จะบันทึกค่าที่เลือกไปยัง selectedAnswers
-                    // ✅ ใช้ onChange สำหรับ <input type="radio"> เพราะมันทำงานเฉพาะเมื่อค่ามีการเปลี่ยนแปลง
-                    // ❌ ไม่ควรใช้ onClick เพราะมันจะทำงานซ้ำแม้ค่าจะไม่เปลี่ยน
-                  />
-                  <span className="label-text text-lg">
-                    {riskQuiz ? riskQuiz[currentIndex]?.option1 : ""}
-                  </span>
-                </label>
+          {loading === true ? (
+            <>
+              <div className="flex justify-center items-center">
+                <Loader className="animate-spin" />
               </div>
-              <div className="flex">
-                <label className="label cursor-pointer text-left">
-                  <input
-                    type="radio"
-                    value="2"
-                    name={currentIndex + 1}
-                    className="radio radio-primary mr-[12px]"
-                    checked={selectedAnswers[currentIndex + 1] === 2}
-                    onChange={() => handleSelect(currentIndex + 1, 2)}
-                  />
-                  <span className="label-text text-lg">
-                    {riskQuiz ? riskQuiz[currentIndex]?.option2 : ""}
-                  </span>
-                </label>
+            </>
+          ) : (
+            <div>
+              <div className="flex flex-col">
+                <h2 className="text-2xl font-semibold mb-4">
+                  {riskQuiz ? riskQuiz[currentIndex]?.question : ""}
+                </h2>
+                <div className="w-full">
+                  <div className="flex">
+                    <label className="label cursor-pointer text-left">
+                      <input
+                        type="radio"
+                        value="1"
+                        name={currentIndex + 1} // ทำให้ปุ่ม <input> ที่อยู่ในคำถามเดียวกันเป็นกลุ่มเดียวกัน และสามารถเลือกได้เพียงตัวเลือกเดียว
+                        className="radio radio-primary mr-[12px]"
+                        checked={selectedAnswers[currentIndex + 1] === 1}
+                        onChange={() => handleSelect(currentIndex + 1, 1)} // เมื่อคลิกที่ปุ่ม จะบันทึกค่าที่เลือกไปยัง selectedAnswers
+                        // ✅ ใช้ onChange สำหรับ <input type="radio"> เพราะมันทำงานเฉพาะเมื่อค่ามีการเปลี่ยนแปลง
+                        // ❌ ไม่ควรใช้ onClick เพราะมันจะทำงานซ้ำแม้ค่าจะไม่เปลี่ยน
+                      />
+                      <span className="label-text text-lg">
+                        {riskQuiz ? riskQuiz[currentIndex]?.option1 : ""}
+                      </span>
+                    </label>
+                  </div>
+                  <div className="flex">
+                    <label className="label cursor-pointer text-left">
+                      <input
+                        type="radio"
+                        value="2"
+                        name={currentIndex + 1}
+                        className="radio radio-primary mr-[12px]"
+                        checked={selectedAnswers[currentIndex + 1] === 2}
+                        onChange={() => handleSelect(currentIndex + 1, 2)}
+                      />
+                      <span className="label-text text-lg">
+                        {riskQuiz ? riskQuiz[currentIndex]?.option2 : ""}
+                      </span>
+                    </label>
+                  </div>
+                  <div className="flex">
+                    <label className="label cursor-pointer text-left">
+                      <input
+                        type="radio"
+                        value="3"
+                        name={currentIndex + 1}
+                        className="radio radio-primary mr-[12px]"
+                        checked={selectedAnswers[currentIndex + 1] === 3}
+                        onChange={() => handleSelect(currentIndex + 1, 3)}
+                      />
+                      <span className="label-text text-lg">
+                        {riskQuiz ? riskQuiz[currentIndex]?.option3 : ""}
+                      </span>
+                    </label>
+                  </div>
+                  <div className="flex">
+                    <label className="label cursor-pointer text-left">
+                      <input
+                        type="radio"
+                        value="4"
+                        name={currentIndex + 1}
+                        className="radio radio-primary mr-[12px]"
+                        checked={selectedAnswers[currentIndex + 1] === 4}
+                        onChange={() => handleSelect(currentIndex + 1, 4)}
+                      />
+                      <span className="label-text text-lg">
+                        {riskQuiz ? riskQuiz[currentIndex]?.option4 : ""}
+                      </span>
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div className="flex">
-                <label className="label cursor-pointer text-left">
-                  <input
-                    type="radio"
-                    value="3"
-                    name={currentIndex + 1}
-                    className="radio radio-primary mr-[12px]"
-                    checked={selectedAnswers[currentIndex + 1] === 3}
-                    onChange={() => handleSelect(currentIndex + 1, 3)}
-                  />
-                  <span className="label-text text-lg">
-                    {riskQuiz ? riskQuiz[currentIndex]?.option3 : ""}
-                  </span>
-                </label>
-              </div>
-              <div className="flex">
-                <label className="label cursor-pointer text-left">
-                  <input
-                    type="radio"
-                    value="4"
-                    name={currentIndex + 1}
-                    className="radio radio-primary mr-[12px]"
-                    checked={selectedAnswers[currentIndex + 1] === 4}
-                    onChange={() => handleSelect(currentIndex + 1, 4)}
-                  />
-                  <span className="label-text text-lg">
-                    {riskQuiz ? riskQuiz[currentIndex]?.option4 : ""}
-                  </span>
-                </label>
+
+              {/* ปุ่มย้อนกลับ (ปิดการใช้งานถ้าอยู่ข้อแรก) */}
+              <div className="flex justify-between mt-[32px]">
+                <button
+                  className="px-4 py-2 bg-gray-300 rounded-full hover:bg-gray-400 flex gap-2"
+                  onClick={prevQuestion}
+                  disabled={currentIndex === 0}
+                >
+                  <ArrowLeft /> ก่อนหน้า
+                </button>
+
+                {/* ปุ่มไปข้อต่อไป */}
+                {currentIndex < riskQuiz?.length - 1 && (
+                  <button
+                    className="px-4 py-2 bg-primary text-white rounded-full flex gap-2"
+                    onClick={nextQuestion}
+                    // disabled={currentIndex === quizQuestions.length - 1}
+                  >
+                    ถัดไป <ArrowRight />
+                  </button>
+                )}
+
+                {/* ปุ่มส่งแบบทดสอบไปหน้าผลลัพธ์ พร้อมบันทึกคะแนน */}
+                {currentIndex === riskQuiz?.length - 1 && (
+                  <Link to="/risk-assessment-result">
+                    <button
+                      onClick={() => {
+                        saveScore(scoreall);
+                      }}
+                      className="px-4 py-2 bg-primary text-white rounded-full"
+                    >
+                      ส่งคำตอบ
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
-          </div>
-          
-          {/* ปุ่มย้อนกลับ (ปิดการใช้งานถ้าอยู่ข้อแรก) */}
-          <div className="flex justify-between mt-[32px]">
-            <button
-              className="px-4 py-2 bg-gray-300 rounded-full hover:bg-gray-400 flex gap-2"
-              onClick={prevQuestion}
-              disabled={currentIndex === 0}
-            >
-              <ArrowLeft /> ก่อนหน้า
-            </button>
-
-            {/* ปุ่มไปข้อต่อไป */}
-            {currentIndex < riskQuiz?.length - 1 && (
-              <button
-                className="px-4 py-2 bg-primary text-white rounded-full flex gap-2"
-                onClick={nextQuestion}
-                // disabled={currentIndex === quizQuestions.length - 1}
-              >
-                ถัดไป <ArrowRight />
-              </button>
-            )}
-
-            {/* ปุ่มส่งแบบทดสอบไปหน้าผลลัพธ์ พร้อมบันทึกคะแนน */}
-            {currentIndex === riskQuiz?.length - 1 && (
-              <Link to="/risk-assessment-result">
-                <button
-                  onClick={() => {
-                    saveScore(scoreall);
-                  }}
-                  className="px-4 py-2 bg-primary text-white rounded-full"
-                >
-                  ส่งคำตอบ
-                </button>
-              </Link>
-            )}
-          </div>
+          )}
         </div>
         <p className="text-xs mt-[48px]">
           * แบบประเมินความเสี่ยงนี้นำมาจากเว็บไซต์ของสำนักงาน กลต. ณ วันที่ 4
