@@ -4,6 +4,7 @@ import useFundStore from "../../stores/useFundStore";
 import ResultTable from "./ResultTable";
 import { createAlert } from "../../utils/createAlert";
 import Remark from "./Remark";
+import { Loader } from "lucide-react";
 
 function SearchBox() {
   const getFilteredAndSortedFunds = useFundStore(
@@ -22,6 +23,9 @@ function SearchBox() {
   const riskLevel = useFundStore((state) => state.riskLevel?.result);
   const globalInv = useFundStore((state) => state.globalInv?.result);
 
+  // console.log("group", group)
+  // console.log("globalInv", globalInv)
+
   // filter
   const [currentPage, setCurrentPage] = useState(1); // Starting at page 1
   const [classAbbrName, setClassAbbrName] = useState("");
@@ -33,6 +37,7 @@ function SearchBox() {
   const [sortBy, setSortBy] = useState("return");
   const [performanceType, setPerformanceType] = useState("ผลตอบแทนกองทุนรวม");
   const [performancePeriod, setPerformancePeriod] = useState("1 year");
+  const [loading, setLoading] = useState(null);
 
   useEffect(() => {
     getCompanies(); // โหลดข้อมูลบริษัทเมื่อ component โหลด
@@ -42,8 +47,8 @@ function SearchBox() {
   }, []);
 
   useEffect(() => {
-      hdlSearchFilter(1);
-      setCurrentPage(1)
+    hdlSearchFilter(1);
+    setCurrentPage(1);
   }, [sortBy, performanceType, performancePeriod]); // ดึงข้อมูลใหม่เมื่อ state เปลี่ยน
 
   let countFundsConverted = countFunds <= 10 ? 1 : Math.ceil(countFunds / 10);
@@ -56,6 +61,8 @@ function SearchBox() {
   };
 
   const hdlSearchFilter = async (pageNumber) => {
+    setLoading(true);
+
     try {
       const page = pageNumber || 1;
       // console.log("***", page);
@@ -74,11 +81,14 @@ function SearchBox() {
         performancePeriod
       );
 
+      setLoading(false);
+
       // console.log(filteredFunds);
     } catch (error) {
       // console.log(error.response?.data.message)
       const errMsg = error.response?.data?.message || error.message;
       createAlert("info", errMsg);
+      setLoading(false);
     }
   };
 
@@ -173,10 +183,10 @@ function SearchBox() {
                 <option disabled value="">
                   เลือกประเภทกองทุนที่นี่
                 </option>
-                {/* เงื่อนไขให้แสดงข้อมูลจาก company */}
+                {/* เงื่อนไขให้แสดงข้อมูล */}
                 {group?.map((el, index) => (
-                  <option key={index} value={el.id}>
-                    {el.fundCompareGroup}
+                  <option key={index} value={el}>
+                    {el}
                   </option>
                 ))}
               </select>
@@ -225,8 +235,8 @@ function SearchBox() {
                 </option>
                 {/* เงื่อนไขให้แสดงข้อมูลจาก company */}
                 {globalInv?.map((el, index) => (
-                  <option key={index} value={el.id}>
-                    {el.investCountryFlag}
+                  <option key={index} value={el}>
+                    {el}
                   </option>
                 ))}
               </select>
@@ -455,9 +465,13 @@ function SearchBox() {
         </div>
       </div>
 
-      <ResultTable />
+      {loading === true ? <> <div className="w-full h-[100px] flex justify-center items-center">
+    <Loader className="animate-spin" />
+    </div></> : <ResultTable />}
 
-      {(filteredFunds === null || filteredFunds?.length === 0) ? "" : (
+      {filteredFunds === null || filteredFunds?.length === 0 ? (
+        ""
+      ) : (
         <div className="flex justify-between items-center mt-[28px]">
           <button
             onClick={handlePrevious}
@@ -480,7 +494,7 @@ function SearchBox() {
         </div>
       )}
 
-     <Remark />
+      <Remark />
     </>
   );
 }

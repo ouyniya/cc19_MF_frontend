@@ -2,20 +2,20 @@ import React, { useEffect } from "react";
 import useFundStore from "../../stores/useFundStore";
 
 function ResultTable() {
-  const getFilteredFunds = useFundStore((state) => state.getFilteredFunds);
+  // const getFilteredFunds = useFundStore((state) => state.getFilteredFunds);
   const filteredFunds = useFundStore((state) => state.filteredFunds);
 
   // get all fund รอบแรก
-  useEffect(() => {
-    hdlSearchFilter();
-  }, []);
+  // useEffect(() => {
+  //   hdlSearchFilter();
+  // }, []);
 
-  // ข้อมูลเริ่มต้นเป็นแบบไม่ filter 
-  const hdlSearchFilter = async () => {
-    await getFilteredFunds("", "", "", "", "", "", 1, 10);
-  };
+  // ข้อมูลเริ่มต้นเป็นแบบไม่ filter
+  // const hdlSearchFilter = async () => {
+  //   await getFilteredFunds("", "", "", "", "", "", 1, 10);
+  // };
 
-  // console.log(filteredFunds);
+  console.log("filteredFunds", filteredFunds);
 
   // filter hdl when not loading
   const funds = filteredFunds.message ? filteredFunds.message : [];
@@ -23,10 +23,8 @@ function ResultTable() {
   return (
     <>
       <div className="overflow-x-auto h-[750px] mt-[48px]">
-        {filteredFunds === null ? (
-          <div className="absolute text-lg text-rose-500">
-            *** ไม่มีข้อมูลกองทุนหรือยังไม่ได้ทำการระบุเงื่อนไขในการค้นหา ***
-          </div>
+        { !filteredFunds ? (
+          <div className="absolute text-lg text-rose-500">Loading...</div>
         ) : filteredFunds?.length === 0 ? (
           <div className="absolute text-lg text-rose-500">
             *** ไม่มีข้อมูลกองทุนหรือยังไม่ได้ทำการระบุเงื่อนไขในการค้นหา ***
