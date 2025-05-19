@@ -6,6 +6,16 @@ This website is developed to assist investors in selecting funds that match thei
 
 **It's just for a personal or learning project**
 
+### 🎥 Project Walkthrough
+
+Live demo: https://smart-fund-select-frontend.vercel.app/  
+
+Click the image below to watch a video walkthrough of the project:
+Watch the demo:
+
+[![Watch the demo](https://img.youtube.com/vi/1XQmvn3KVcE/0.jpg)](https://youtu.be/1XQmvn3KVcE)
+
+
 ## 📸 Screenshots / Demo
 
 ![landing page](https://i.imgur.com/p5RTLN1.png)
@@ -17,12 +27,6 @@ This website is developed to assist investors in selecting funds that match thei
 ![wishlist](https://i.imgur.com/U1DHj08.png)
 ![portfolio analysis](https://i.imgur.com/jupbFP3.png)
 
-### 🎥 Project Walkthrough
-
-Click the image below to watch a video walkthrough of the project:
-Watch the demo:
-
-[![Watch the demo](https://img.youtube.com/vi/1XQmvn3KVcE/0.jpg)](https://youtu.be/1XQmvn3KVcE)
 
 
 ## 🌼 Features
@@ -32,6 +36,11 @@ Watch the demo:
 - Fund Recommendation: Recommending type of funds suitable for investors using AI and  rule-based systems.
 - User: Investors who wish to select mutual funds.
 - Security: Use JWT Authentication for user verification.
+
+
+## ER-diagram
+https://drive.google.com/file/d/11LGkHc4QgWS_LktU4IruhBoZXaa_hvno/view?usp=sharing
+
 
 
 ## 🛠️ Tech Stack
