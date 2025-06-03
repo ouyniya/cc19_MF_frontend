@@ -19,6 +19,7 @@ import LayoutAdmin from "../layouts/LayoutAdmin";
 import ProtectRoutes from "./ProtectRoutes";
 import RiskResult from "../pages/riskAssessment/RiskResult";
 import ProtectAuth from "./ProtectAuth";
+import PrivacyPolicy from "../pages/main/PrivacyPolicy";
 
 // Route ใช้ในการกำหนดเส้นทาง (route) เฉพาะหนึ่งเส้นทาง
 // Routes จะตรวจสอบว่า URL ตรงกับ path ไหน และแสดงคอมโพเนนต์ที่ตรงกับเส้นทางนั้น
@@ -32,6 +33,7 @@ function AppRoutes() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="contact-us" element={<ContactUs />} />
+          <Route path="privacy"  element={<PrivacyPolicy />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="fund" element={<Fund />} />

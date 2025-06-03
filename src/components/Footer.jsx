@@ -23,6 +23,8 @@ function Footer() {
             </Link>
             <Link to="/login" className="link link-hover">ลงชื่อเข้าใช้
             </Link>
+            <Link to="/privacy" className="link link-hover">นโยบายความเป็นส่วนตัว
+            </Link>
           </nav>
           <nav className="flex flex-col basis-1/4">
             <h6 className="footer-title">บริการของเรา</h6>
