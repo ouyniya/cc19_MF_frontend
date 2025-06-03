@@ -6,13 +6,17 @@ import { createAlert } from "../../utils/createAlert";
 
 function Logout() {
   const logout = useUserStore((state) => state.logout);
+  const currentUser = useUserStore((state) => state.currentUser);
   const navigate = useNavigate();
 
-  const hdlLogout = () => {
+  const hdlLogout = async () => {
+    
+    await logout();
+    // navigate("/");
+    window.location.href = "/"; // เปลี่ยนเส้นทางไปที่ homepage และ reload หน้าใหม่
     createAlert("success", "Logout successfully");
 
-    logout();
-    navigate("/");
+    console.log("currentUser after logout:", currentUser); // ต้องเป็น ""
   };
 
   return (

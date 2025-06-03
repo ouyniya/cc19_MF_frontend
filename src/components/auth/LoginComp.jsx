@@ -18,6 +18,8 @@ function LoginComp() {
   const login = useUserStore((state) => state.login);
   const [loading, setLoading] = useState(null);
 
+  console.log("login from store", login);
+
   const navigate = useNavigate();
   const [input, setInput] = useState({
     //// เก็บค่าของ email และ password ที่ผู้ใช้กรอก
@@ -55,6 +57,7 @@ function LoginComp() {
       setLoading(false);
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
+      console.log(error)
       createAlert("info", errMsg); // แสดงข้อความแจ้งเตือนเมื่อเกิดข้อผิดพลาด
       setLoading(false);
     }

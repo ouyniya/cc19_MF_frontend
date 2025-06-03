@@ -32,8 +32,8 @@ function AppRoutes() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="contact-us" element={<ContactUs />} />
-          <Route path="register" element={<ProtectAuth el={<Register />} />} />
-          <Route path="login" element={<ProtectAuth el={<Login />} />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
           <Route path="fund" element={<Fund />} />
           <Route path="risk-assessment" element={<RiskAssessment />} />
           <Route path="risk-assessment-result" element={<RiskResult />} />

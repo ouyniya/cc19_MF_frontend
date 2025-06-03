@@ -1,12 +1,16 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { LogoIcon, MenuIcon } from "../icons";
 import { Link } from "react-router";
 import useUserStore from "../stores/useUserStore";
 import { User2 } from "lucide-react";
 
 function Navbar() {
-  const currentUser = useUserStore((state) => state.currentUser);
+  const user = useUserStore((state) => state.user);
   const detailsRef = useRef(null);
+  const currentUserRaw = useUserStore((state) => state.currentUser);
+  const getCurrentUser = useUserStore((state) => state.getCurrentUser);
+  const logout = useUserStore((state) => state.logout);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleClickOutside = (event) => {
     // console.log(event.target)
@@ -22,7 +26,23 @@ function Navbar() {
     }
   };
 
+  // const callGetCurrentUser = async () => {
+    
+  //   try {
+  //     await getCurrentUser();
+  //     if (user) {
+  //       setCurrentUser(currentUserRaw);
+  //     } else {
+  //       setCurrentUser(null);
+  //     }
+  //   } catch (error) {
+  //       setCurrentUser(null);
+  //   }
+  // };
+  
   useEffect(() => {
+    // callGetCurrentUser();
+
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside); // เมื่อ component ถูก unmount
@@ -99,7 +119,7 @@ function Navbar() {
         </div>
         {/* register and login */}
         <div className="navbar-end flex gap-3">
-          {currentUser ? (
+          {user && currentUser ? (
             <>
               <p className="text-white">{currentUser?.user.username}</p>
               <Link to={currentUser?.user.role === "ADMIN" ? "/admin" : "user"}>
